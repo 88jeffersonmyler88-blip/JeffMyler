@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tornearia Ostac - Engenharia de Alta Performance</title>
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Oswald:wght@500;700;900&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            display: ['Oswald', 'sans-serif']
+          },
+          colors: {
+            'industrial-amber': '#F59E0B',
+            'slate-black': '#0F172A',
+            'titanium-silver': '#E2E8F0'
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Lucide Icons CDN -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <!-- Estilos Customizados & Animações Industriais -->
+  <style>
+    .ostac-root {
+      background-color: #0F172A;
+      background-image: 
+        radial-gradient(at 0% 0%, hsla(222,47%,11%,1) 0, transparent 50%), 
+        radial-gradient(at 50% 0%, hsla(222,47%,15%,1) 0, transparent 50%), 
+        radial-gradient(at 100% 0%, hsla(222,47%,11%,1) 0, transparent 50%);
+      color: #E2E8F0;
+      font-family: 'Inter', sans-serif;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    .ostac-root h1, .ostac-root h2, .ostac-root h3, .ostac-root h4 {
+      font-family: 'Oswald', sans-serif;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .steel-texture-bg {
+      background-image: url("https://www.transparenttextures.com/patterns/brushed-alum.png");
+      opacity: 0.05;
+    }
+
+    @keyframes pulse-amber-glow {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(245, 158, 11, 0.4); }
+      50% { box-shadow: 0 0 0 10px rgba(245, 158, 11, 0); }
+    }
+
+    .btn-pulse-amber {
+      animation: pulse-amber-glow 2s infinite;
+    }
+
+    .text-brilliant-glow {
+      background: linear-gradient(
+        to right,
+        #E2E8F0 20%,
+        #F59E0B 40%,
+        #F59E0B 60%,
+        #E2E8F0 80%
+      );
+      background-size: 200% auto;
+      color: #000;
+      background-clip: text;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: text-shine-anim 3s linear infinite;
+      text-shadow: 0 0 10px rgba(245, 158, 11, 0.3);
+    }
+
+    @keyframes text-shine-anim {
+      to { background-position: 200% center; }
+    }
+
+    .sparks-container {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      overflow: hidden;
+    }
+
+    .spark-particle {
+      position: absolute;
+      width: 2px;
+      height: 2px;
+      background: #F59E0B;
+      border-radius: 50%;
+      box-shadow: 0 0 6px #F59E0B;
+      animation: spark-anim 1.8s infinite ease-out;
+    }
+
+    @keyframes spark-anim {
+      0% { transform: translate(0, 0) scale(1); opacity: 0; }
+      50% { opacity: 1; }
+      100% { transform: translate(var(--tx, 30px), var(--ty, -40px)) scale(0); opacity: 0; }
+    }
+
+    .golden-seal-polygon {
+      background: linear-gradient(135deg, #BF953F, #FCF6BA, #B38728, #FBF5B7, #AA771C);
+      clip-path: polygon(50% 0%, 53% 8%, 60% 5%, 62% 13%, 70% 11%, 71% 19%, 79% 18%, 79% 26%, 87% 27%, 85% 35%, 92% 38%, 89% 46%, 95% 50%, 89% 54%, 92% 62%, 85% 65%, 87% 73%, 79% 74%, 79% 82%, 71% 81%, 70% 89%, 62% 87%, 60% 95%, 53% 92%, 50% 100%, 47% 92%, 40% 95%, 38% 87%, 30% 89%, 29% 81%, 21% 82%, 21% 74%, 13% 73%, 15% 65%, 8% 62%, 11% 54%, 5% 50%, 11% 46%, 8% 38%, 15% 35%, 13% 27%, 21% 26%, 21% 18%, 29% 19%, 30% 11%, 38% 13%, 40% 5%, 47% 8%);
+    }
+  </style>
+</head>
+<body class="bg-slate-900 text-slate-100">
+<div class="ostac-root">
+  <div class="fixed inset-0 steel-texture-bg pointer-events-none z-10"></div>
+
+  <!-- Navbar -->
+  <nav id="ostac-navbar" class="fixed top-0 w-full z-50 transition-all duration-500 bg-transparent py-6">
+    <div class="container mx-auto px-6 flex justify-between items-center">
+      <!-- Logo com efeito de faíscas -->
+      <div class="flex items-center cursor-pointer relative group">
+        <div class="relative flex flex-col items-start">
+          <h1 class="text-2xl md:text-3xl font-display font-bold text-brilliant-glow tracking-tighter leading-none">TORNEARIA</h1>
+          <h1 class="text-3xl md:text-4xl font-display font-black text-brilliant-glow tracking-widest leading-none -mt-1">OSTAC</h1>
+          
+          <div class="sparks-container">
+            <span class="spark-particle" style="left: 30%; top: 40%; --tx: 35px; --ty: -45px; animation-delay: 0.2s;"></span>
+            <span class="spark-particle" style="left: 60%; top: 50%; --tx: -40px; --ty: -35px; animation-delay: 0.7s;"></span>
+            <span class="spark-particle" style="left: 45%; top: 60%; --tx: 20px; --ty: -55px; animation-delay: 1.1s;"></span>
+            <span class="spark-particle" style="left: 75%; top: 45%; --tx: -30px; --ty: -30px; animation-delay: 1.5s;"></span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Desktop Menu -->
+      <div class="hidden md:flex items-center gap-8">
+        <a href="#servicos" class="text-sm uppercase tracking-widest hover:text-industrial-amber transition-colors">Serviços</a>
+        <a href="#galeria" class="text-sm uppercase tracking-widest hover:text-industrial-amber transition-colors">Galeria</a>
+        <a href="#sobre" class="text-sm uppercase tracking-widest hover:text-industrial-amber transition-colors">Sobre</a>
+        <a href="#contato" class="text-sm uppercase tracking-widest hover:text-industrial-amber transition-colors">Contato</a>
+        <a href="https://wa.me/554733461085" target="_blank" rel="noopener noreferrer" class="bg-industrial-amber text-slate-black px-6 py-2.5 font-display font-bold uppercase tracking-wider text-sm hover:bg-white transition-all btn-pulse-amber">
+          Solicitar Orçamento
+        </a>
+      </div>
+
+      <!-- Mobile Toggle -->
+      <button id="ostac-mobile-toggle" class="md:hidden text-white focus:outline-none" aria-label="Abrir Menu">
+        <i data-lucide="menu" class="w-7 h-7"></i>
+      </button>
+    </div>
+
+    <!-- Mobile Dropdown Menu -->
+    <div id="ostac-mobile-menu" class="hidden absolute top-full left-0 w-full bg-slate-black border-b border-white/10 p-6 flex flex-col gap-4 md:hidden shadow-2xl">
+      <a href="#servicos" class="ostac-mobile-link text-lg uppercase font-display text-white hover:text-industrial-amber">Serviços</a>
+      <a href="#galeria" class="ostac-mobile-link text-lg uppercase font-display text-white hover:text-industrial-amber">Galeria</a>
+      <a href="#sobre" class="ostac-mobile-link text-lg uppercase font-display text-white hover:text-industrial-amber">Sobre</a>
+      <a href="#contato" class="ostac-mobile-link text-lg uppercase font-display text-white hover:text-industrial-amber">Contato</a>
+      <a href="https://wa.me/554733461085" target="_blank" rel="noopener noreferrer" class="bg-industrial-amber text-slate-black p-4 text-center font-display font-bold uppercase tracking-wider">
+        Solicitar Orçamento
+      </a>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="relative min-h-screen flex items-center overflow-hidden pt-20">
+    <div class="absolute inset-0 z-0">
+      <div class="absolute inset-0 bg-slate-black/70 z-10"></div>
+      <img src="https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?auto=format&fit=crop&q=80&w=1920" alt="Tornearia e Usinagem Industrial" class="w-full h-full object-cover">
+    </div>
+
+    <div class="container mx-auto px-6 relative z-20">
+      <div class="max-w-4xl">
+        <span class="text-industrial-amber font-display tracking-[0.3em] uppercase text-sm mb-4 block">
+          Engenharia de Alta Performance
+        </span>
+        <h1 class="text-5xl md:text-8xl font-bold leading-[0.9] mb-8 text-white">
+          A ARTE DA <span class="text-industrial-amber">PRECISÃO</span> EM CADA MICRON.
+        </h1>
+        <p class="text-lg md:text-xl text-titanium-silver/80 max-w-2xl mb-10 leading-relaxed">
+          Desde Itajaí para o Brasil. A Tornearia Ostac une tradição artesanal e tecnologia de ponta para entregar soluções em usinagem que desafiam o tempo.
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4">
+          <a href="https://wa.me/554733461085" target="_blank" rel="noopener noreferrer" class="group bg-industrial-amber text-slate-black px-8 py-4 font-display font-bold uppercase tracking-widest flex items-center justify-center gap-3 hover:bg-white transition-all">
+            Falar com um Especialista
+            <i data-lucide="arrow-right" class="w-5 h-5 group-hover:translate-x-1 transition-transform"></i>
+          </a>
+          <a href="#servicos" class="px-8 py-4 border border-white/20 font-display font-bold uppercase tracking-widest flex items-center justify-center hover:bg-white/10 transition-all text-white">
+            Nossos Serviços
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="absolute bottom-0 right-0 w-1/3 h-1/3 border-t border-l border-white/5 pointer-events-none hidden lg:block"></div>
+  </section>
+
+  <!-- Stats Bar -->
+  <div class="bg-white text-slate-black py-12 relative z-30">
+    <div class="container mx-auto px-6">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="flex items-center gap-6 md:justify-center border-b md:border-b-0 md:border-r border-slate-black/10 pb-8 md:pb-0">
+          <div class="p-3 bg-slate-black text-industrial-amber rounded-sm">
+            <i data-lucide="clock" class="w-5 h-5"></i>
+          </div>
+          <div>
+            <div class="text-4xl font-display font-bold">+30</div>
+            <div class="text-xs uppercase tracking-widest font-semibold opacity-60">Anos de Experiência</div>
+          </div>
+        </div>
+
+        <div class="flex items-center gap-6 md:justify-center border-b md:border-b-0 md:border-r border-slate-black/10 pb-8 md:pb-0">
+          <div class="p-3 bg-slate-black text-industrial-amber rounded-sm">
+            <i data-lucide="target" class="w-5 h-5"></i>
+          </div>
+          <div>
+            <div class="text-4xl font-display font-bold">100%</div>
+            <div class="text-xs uppercase tracking-widest font-semibold opacity-60">Precisão Técnica</div>
+          </div>
+        </div>
+
+        <div class="flex items-center gap-6 md:justify-center">
+          <div class="p-3 bg-slate-black text-industrial-amber rounded-sm">
+            <i data-lucide="award" class="w-5 h-5"></i>
+          </div>
+          <div>
+            <div class="text-4xl font-display font-bold">+1000</div>
+            <div class="text-xs uppercase tracking-widest font-semibold opacity-60">Projetos Entregues</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Serviços -->
+  <section id="servicos" class="py-24 bg-slate-black relative overflow-hidden">
+    <div class="container mx-auto px-6">
+      <div class="mb-16">
+        <h2 class="text-4xl md:text-6xl font-bold mb-4 text-white">Engenharia de <span class="text-industrial-amber">Elite</span></h2>
+        <div class="w-24 h-1 bg-industrial-amber"></div>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <!-- Serviço 1 -->
+        <div class="group relative bg-white/5 border border-white/10 p-8 overflow-hidden transition-transform duration-300 hover:-translate-y-2">
+          <div class="text-industrial-amber mb-6">
+            <i data-lucide="settings" class="w-8 h-8"></i>
+          </div>
+          <h3 class="text-2xl font-bold mb-4 text-white">Tornearia de Precisão</h3>
+          <p class="text-titanium-silver/60 mb-8 leading-relaxed">
+            Recuperação e fabricação de peças complexas com tolerâncias mínimas. Especialistas em eixos, buchas e engrenagens de grande porte.
+          </p>
+          <div class="h-48 overflow-hidden mb-6">
+            <img src="https://images.unsplash.com/photo-1581092160562-40aa08e78837?auto=format&fit=crop&q=80&w=800" alt="Tornearia de Precisão" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 scale-110 group-hover:scale-100">
+          </div>
+          <a href="#contato" class="inline-flex items-center gap-2 text-sm font-display font-bold uppercase tracking-widest text-industrial-amber hover:text-white transition-colors">
+            Saiba Mais <i data-lucide="arrow-right" class="w-4 h-4"></i>
+          </a>
+        </div>
+
+        <!-- Serviço 2 -->
+        <div class="group relative bg-white/5 border border-white/10 p-8 overflow-hidden transition-transform duration-300 hover:-translate-y-2">
+          <div class="text-industrial-amber mb-6">
+            <i data-lucide="zap" class="w-8 h-8"></i>
+          </div>
+          <h3 class="text-2xl font-bold mb-4 text-white">Usinagem Especializada</h3>
+          <p class="text-titanium-silver/60 mb-8 leading-relaxed">
+            Soluções sob medida para o setor portuário e industrial. Atendemos demandas críticas com agilidade e rigor técnico absoluto.
+          </p>
+          <div class="h-48 overflow-hidden mb-6">
+            <img src="https://lh3.googleusercontent.com/d/1oelL9ZMDgC2X9AGRvE0vuAouyhrl9jE0" alt="Usinagem Especializada" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 scale-110 group-hover:scale-100">
+          </div>
+          <a href="#contato" class="inline-flex items-center gap-2 text-sm font-display font-bold uppercase tracking-widest text-industrial-amber hover:text-white transition-colors">
+            Saiba Mais <i data-lucide="arrow-right" class="w-4 h-4"></i>
+          </a>
+        </div>
+
+        <!-- Serviço 3 -->
+        <div class="group relative bg-white/5 border border-white/10 p-8 overflow-hidden transition-transform duration-300 hover:-translate-y-2">
+          <div class="text-industrial-amber mb-6">
+            <i data-lucide="shield-check" class="w-8 h-8"></i>
+          </div>
+          <h3 class="text-2xl font-bold mb-4 text-white">Soldas e Acabamentos</h3>
+          <p class="text-titanium-silver/60 mb-8 leading-relaxed">
+            Processos de soldagem certificados e acabamentos superficiais de alta qualidade para garantir a durabilidade de cada componente.
+          </p>
+          <div class="h-48 overflow-hidden mb-6">
+            <img src="https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?auto=format&fit=crop&q=80&w=800" alt="Soldas e Acabamentos" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 scale-110 group-hover:scale-100">
+          </div>
+          <a href="#contato" class="inline-flex items-center gap-2 text-sm font-display font-bold uppercase tracking-widest text-industrial-amber hover:text-white transition-colors">
+            Saiba Mais <i data-lucide="arrow-right" class="w-4 h-4"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Galeria -->
+  <section id="galeria" class="py-24 bg-slate-black">
+    <div class="container mx-auto px-6">
+      <div class="mb-16 text-center">
+        <h2 class="text-4xl md:text-6xl font-bold mb-4 text-white">NOSSA <span class="text-industrial-amber">OFICINA</span></h2>
+        <p class="text-titanium-silver/40 uppercase tracking-widest text-sm">Excelência visual em cada detalhe do processo</p>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div class="aspect-square overflow-hidden group relative">
+          <img src="https://images.unsplash.com/photo-1537462715879-360eeb61a0ad?auto=format&fit=crop&q=80&w=800" alt="Oficina 1" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500 group-hover:scale-110">
+          <div class="absolute inset-0 bg-industrial-amber/20 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"></div>
+        </div>
+        <div class="aspect-square overflow-hidden group relative">
+          <img src="https://lh3.googleusercontent.com/d/1tX59Z5A2aLamrbfaVHj00yeQ2eVLEgtv" alt="Oficina 2" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500 group-hover:scale-110">
+          <div class="absolute inset-0 bg-industrial-amber/20 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"></div>
+        </div>
+        <div class="aspect-square overflow-hidden group relative">
+          <img src="https://images.unsplash.com/photo-1581092160562-40aa08e78837?auto=format&fit=crop&q=80&w=800" alt="Oficina 3" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500 group-hover:scale-110">
+          <div class="absolute inset-0 bg-industrial-amber/20 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"></div>
+        </div>
+        <div class="aspect-square overflow-hidden group relative">
+          <img src="https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?auto=format&fit=crop&q=80&w=800" alt="Oficina 4" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500 group-hover:scale-110">
+          <div class="absolute inset-0 bg-industrial-amber/20 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"></div>
+        </div>
+        <div class="aspect-square overflow-hidden group relative">
+          <img src="https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?auto=format&fit=crop&q=80&w=800" alt="Oficina 5" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500 group-hover:scale-110">
+          <div class="absolute inset-0 bg-industrial-amber/20 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"></div>
+        </div>
+        <div class="aspect-square overflow-hidden group relative">
+          <img src="https://images.unsplash.com/photo-1513828583688-c52646db42da?auto=format&fit=crop&q=80&w=800" alt="Oficina 6" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500 group-hover:scale-110">
+          <div class="absolute inset-0 bg-industrial-amber/20 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Sobre Nós -->
+  <section id="sobre" class="py-24 bg-white text-slate-black">
+    <div class="container mx-auto px-6">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start mb-24">
+        
+        <!-- Imagem com Selo de Garantia -->
+        <div class="relative lg:sticky lg:top-24 mb-12 lg:mb-0">
+          <div class="absolute -top-4 -left-4 w-24 h-24 border-t-4 border-l-4 border-industrial-amber"></div>
+          <img src="https://lh3.googleusercontent.com/d/1tX59Z5A2aLamrbfaVHj00yeQ2eVLEgtv" alt="Workshop Ostac" class="w-full h-auto md:h-[600px] md:object-cover shadow-2xl">
+          
+          <!-- Selo Dourado -->
+          <div class="absolute z-20 group bottom-[-10mm] right-[-5mm] md:right-[-10mm]">
+            <div class="relative w-24 h-24 md:w-32 md:h-32 flex items-center justify-center transition-transform hover:scale-105 cursor-default" style="filter: drop-shadow(0 0 1px #000) drop-shadow(0 8px 12px rgba(0,0,0,0.7));">
+              <div class="w-full h-full flex items-center justify-center overflow-hidden relative golden-seal-polygon">
+                <div class="absolute inset-0 bg-gradient-to-tr from-transparent via-white/80 to-transparent pointer-events-none"></div>
+                <div class="text-center p-1 border border-black/20 rounded-full w-[90%] h-[90%] flex flex-col items-center justify-center relative z-10">
+                  <p class="font-display font-black text-[10px] md:text-base uppercase leading-none text-slate-black mb-0.5">Qualidade</p>
+                  <p class="font-display font-black text-[10px] md:text-base uppercase leading-none text-slate-black mb-0.5">Garantida</p>
+                  <div class="h-[1px] w-6 md:w-10 bg-black/40 my-0.5 md:my-1"></div>
+                  <p class="font-display font-bold text-[6px] md:text-[9px] uppercase tracking-widest text-slate-black/90">desde 2005</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Conteúdo Institucional -->
+        <div>
+          <h2 class="text-4xl md:text-6xl font-bold mb-4 leading-tight">OSTAC</h2>
+          <h3 class="text-2xl md:text-3xl font-display text-industrial-amber mb-8">METALURGICA E USINAGEM</h3>
+          
+          <div class="space-y-6 text-lg text-slate-black/70 leading-relaxed mb-12">
+            <p>
+              A OSTAC é formada por um grupo de profissionais com larga experiência em projetos metal mecânicos, usinagem de precisão, metrologia e caldeiraria, com alto nível de complexidade, seguindo normas técnicas nacionais e internacionais.
+            </p>
+            <p>
+              Atua fortemente em projetos, fabricação de peças usinadas, fresadas e montagens de equipamentos ligados a todos os ambientes industriais, navais, metalúrgicos, automotivos e metal mecânicos de precisão, bem como estruturas metálicas na área da construção civil, manutenção, adequação, projeto e instalação mecânicas, petroquímicas em diversos metais ferrosos e não ferrosos.
+            </p>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+            <div class="p-6 bg-slate-black/5 border-l-4 border-industrial-amber">
+              <h4 class="font-bold mb-2">Certificado NR-35</h4>
+              <p class="text-sm opacity-60">Trabalho em Altura</p>
+            </div>
+            <div class="p-6 bg-slate-black/5 border-l-4 border-industrial-amber">
+              <h4 class="font-bold mb-2">Certificado NR-18</h4>
+              <p class="text-sm opacity-60">Uso Adequado de EPI</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Segmentos de Atuação -->
+      <div class="mb-24">
+        <h3 class="text-3xl font-bold mb-12 text-center">ATUAMOS NOS <span class="text-industrial-amber">SEGMENTOS</span> DE:</h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div class="p-8 border border-slate-black/10 hover:border-industrial-amber transition-colors">
+            <h4 class="text-xl font-bold mb-4 text-industrial-amber uppercase tracking-tighter">Manutenção Industrial</h4>
+            <ul class="space-y-2">
+              <li class="text-sm text-slate-black/60 flex items-start gap-2"><span class="text-industrial-amber mt-1">•</span> Reparo, instalação, projetos e adequações de equipamentos e produtos industriais em geral</li>
+            </ul>
+          </div>
+
+          <div class="p-8 border border-slate-black/10 hover:border-industrial-amber transition-colors">
+            <h4 class="text-xl font-bold mb-4 text-industrial-amber uppercase tracking-tighter">Usinagem de precisão</h4>
+            <ul class="space-y-2">
+              <li class="text-sm text-slate-black/60 flex items-start gap-2"><span class="text-industrial-amber mt-1">•</span> Torno, solda, fresa, projetos, desenvolvimento, tratamento, têmpera, furações, metrologia e laudos</li>
+            </ul>
+          </div>
+
+          <div class="p-8 border border-slate-black/10 hover:border-industrial-amber transition-colors">
+            <h4 class="text-xl font-bold mb-4 text-industrial-amber uppercase tracking-tighter">Estruturas Metálicas</h4>
+            <ul class="space-y-2">
+              <li class="text-sm text-slate-black/60 flex items-start gap-2"><span class="text-industrial-amber mt-1">•</span> Mezaninos, Escadas, Guarda corpo e Corrimão</li>
+              <li class="text-sm text-slate-black/60 flex items-start gap-2"><span class="text-industrial-amber mt-1">•</span> Pipe Rack, Galpões, Coberturas, Vasos de pressão</li>
+              <li class="text-sm text-slate-black/60 flex items-start gap-2"><span class="text-industrial-amber mt-1">•</span> Acessórios Navais (PSV, tubulação, usinagem e acessórios para Rebocadores)</li>
+            </ul>
+          </div>
+
+          <div class="p-8 border border-slate-black/10 hover:border-industrial-amber transition-colors">
+            <h4 class="text-xl font-bold mb-4 text-industrial-amber uppercase tracking-tighter">Químicos</h4>
+            <ul class="space-y-2">
+              <li class="text-sm text-slate-black/60 flex items-start gap-2"><span class="text-industrial-amber mt-1">•</span> Biocombustíveis, lubrificantes, tintas e vernizes, derivados de petróleo em geral</li>
+            </ul>
+          </div>
+
+          <div class="p-8 border border-slate-black/10 hover:border-industrial-amber transition-colors md:col-span-2 lg:col-span-2">
+            <h4 class="text-xl font-bold mb-4 text-industrial-amber uppercase tracking-tighter">Caldeiraria e montagem</h4>
+            <ul class="space-y-2">
+              <li class="text-sm text-slate-black/60 flex items-start gap-2"><span class="text-industrial-amber mt-1">•</span> Fabricação e montagem, fábricas, mão de obra técnica, desenvolvimento e gestão de projetos e equipamentos, plantas e estruturas em geral</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Políticas e Premissas -->
+      <div class="bg-slate-black text-white p-8 md:p-12 rounded-sm">
+        <h3 class="text-3xl font-bold mb-12 text-center text-white">PREMISSAS E <span class="text-industrial-amber">POLÍTICAS</span></h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div class="flex items-center gap-3 p-4 border border-white/10">
+            <i data-lucide="shield-check" class="text-industrial-amber shrink-0 w-5 h-5"></i>
+            <span class="text-xs font-bold uppercase tracking-wider">Respeito Social e Ambiental</span>
+          </div>
+          <div class="flex items-center gap-3 p-4 border border-white/10">
+            <i data-lucide="shield-check" class="text-industrial-amber shrink-0 w-5 h-5"></i>
+            <span class="text-xs font-bold uppercase tracking-wider">Compromisso com Clientes e Parceiros</span>
+          </div>
+          <div class="flex items-center gap-3 p-4 border border-white/10">
+            <i data-lucide="shield-check" class="text-industrial-amber shrink-0 w-5 h-5"></i>
+            <span class="text-xs font-bold uppercase tracking-wider">Norma ISO 9001</span>
+          </div>
+          <div class="flex items-center gap-3 p-4 border border-white/10">
+            <i data-lucide="shield-check" class="text-industrial-amber shrink-0 w-5 h-5"></i>
+            <span class="text-xs font-bold uppercase tracking-wider">Profissionais Certificados</span>
+          </div>
+          <div class="flex items-center gap-3 p-4 border border-white/10">
+            <i data-lucide="shield-check" class="text-industrial-amber shrink-0 w-5 h-5"></i>
+            <span class="text-xs font-bold uppercase tracking-wider">Fornecedores Qualificados</span>
+          </div>
+          <div class="flex items-center gap-3 p-4 border border-white/10">
+            <i data-lucide="shield-check" class="text-industrial-amber shrink-0 w-5 h-5"></i>
+            <span class="text-xs font-bold uppercase tracking-wider">Prazos e Especificações</span>
+          </div>
+          <div class="flex items-center gap-3 p-4 border border-white/10">
+            <i data-lucide="shield-check" class="text-industrial-amber shrink-0 w-5 h-5"></i>
+            <span class="text-xs font-bold uppercase tracking-wider">Orçamentos Competitivos</span>
+          </div>
+          <div class="flex items-center gap-3 p-4 border border-white/10">
+            <i data-lucide="shield-check" class="text-industrial-amber shrink-0 w-5 h-5"></i>
+            <span class="text-xs font-bold uppercase tracking-wider">Excelência em Serviços</span>
+          </div>
+        </div>
+
+        <div class="mt-12 pt-12 border-t border-white/10 grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+          <div>
+            <p class="text-industrial-amber font-bold mb-1">Trabalho Seguro</p>
+            <p class="text-xs opacity-40 uppercase tracking-widest">e Confiável</p>
+          </div>
+          <div>
+            <p class="text-industrial-amber font-bold mb-1">Sustentabilidade</p>
+            <p class="text-xs opacity-40 uppercase tracking-widest">Contínua</p>
+          </div>
+          <div>
+            <p class="text-industrial-amber font-bold mb-1">Satisfação</p>
+            <p class="text-xs opacity-40 uppercase tracking-widest">de Clientes e Parceiros</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contato & Formulário -->
+  <section id="contato" class="py-24 bg-white text-slate-black">
+    <div class="container mx-auto px-6">
+      <div class="max-w-5xl mx-auto bg-slate-black text-white p-8 md:p-16 shadow-2xl relative overflow-hidden">
+        <div class="absolute top-0 right-0 w-32 h-32 bg-industrial-amber/10 -mr-16 -mt-16 rotate-45"></div>
+        
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 relative z-10">
+          <div>
+            <h2 class="text-4xl font-bold mb-6 text-white">VAMOS <span class="text-industrial-amber">CONVERSAR?</span></h2>
+            <p class="text-titanium-silver/60 mb-8 leading-relaxed">
+              Tem um projeto desafiador ou precisa de manutenção urgente? Nossa equipe está pronta para entregar a precisão que você busca.
+            </p>
+            
+            <div class="space-y-6">
+              <div class="flex items-center gap-4">
+                <div class="w-12 h-12 border border-industrial-amber flex items-center justify-center text-industrial-amber shrink-0">
+                  <i data-lucide="phone" class="w-5 h-5"></i>
+                </div>
+                <div>
+                  <p class="text-xs uppercase tracking-widest opacity-40">Telefone / WhatsApp</p>
+                  <p class="font-bold">(47) 3346-1085</p>
+                </div>
+              </div>
+              <div class="flex items-center gap-4">
+                <div class="w-12 h-12 border border-industrial-amber flex items-center justify-center text-industrial-amber shrink-0">
+                  <i data-lucide="mail" class="w-5 h-5"></i>
+                </div>
+                <div>
+                  <p class="text-xs uppercase tracking-widest opacity-40">E-mail</p>
+                  <p class="font-bold">torneariaostac@gmail.com</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <form class="space-y-4" onsubmit="event.preventDefault(); window.open('https://wa.me/554733461085?text=' + encodeURIComponent('Olá, gostaria de solicitar um orçamento.'), '_blank');">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <input type="text" placeholder="Nome Completo" required class="bg-white/5 border border-white/10 p-4 w-full text-white placeholder:text-gray-400 focus:outline-none focus:border-industrial-amber transition-colors">
+              <input type="email" placeholder="E-mail Corporativo" required class="bg-white/5 border border-white/10 p-4 w-full text-white placeholder:text-gray-400 focus:outline-none focus:border-industrial-amber transition-colors">
+            </div>
+            <input type="text" placeholder="Assunto (Ex: Orçamento de Eixo)" class="bg-white/5 border border-white/10 p-4 w-full text-white placeholder:text-gray-400 focus:outline-none focus:border-industrial-amber transition-colors">
+            <textarea placeholder="Descreva sua necessidade técnica..." rows="4" class="bg-white/5 border border-white/10 p-4 w-full text-white placeholder:text-gray-400 focus:outline-none focus:border-industrial-amber transition-colors resize-none"></textarea>
+            <button type="submit" class="w-full bg-industrial-amber text-slate-black font-display font-bold uppercase tracking-widest py-4 hover:bg-white transition-all">
+              Enviar Mensagem
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Rodapé -->
+  <footer class="bg-slate-black pt-24 pb-12 border-t border-white/5">
+    <div class="container mx-auto px-6">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 mb-16">
+        <div class="lg:col-span-1">
+          <div class="flex flex-col items-start mb-8">
+            <h1 class="text-3xl font-display font-bold text-brilliant-glow tracking-tighter leading-none">TORNEARIA</h1>
+            <h1 class="text-4xl font-display font-black text-brilliant-glow tracking-widest leading-none -mt-1">OSTAC</h1>
+          </div>
+          <p class="text-titanium-silver/40 text-sm leading-relaxed mb-8">
+            Líder em usinagem de precisão e soluções industriais em Itajaí. Transformando desafios técnicos em resultados de alta performance.
+          </p>
+          <div class="flex gap-4">
+            <a href="#" class="w-10 h-10 border border-white/10 flex items-center justify-center hover:bg-industrial-amber hover:text-slate-black transition-all text-white">
+              <i data-lucide="instagram" class="w-5 h-5"></i>
+            </a>
+            <a href="#" class="w-10 h-10 border border-white/10 flex items-center justify-center hover:bg-industrial-amber hover:text-slate-black transition-all text-white">
+              <i data-lucide="facebook" class="w-5 h-5"></i>
+            </a>
+          </div>
+        </div>
+
+        <div>
+          <h4 class="text-white font-display font-bold uppercase tracking-widest mb-8">Links Rápidos</h4>
+          <ul class="space-y-4 text-sm text-titanium-silver/60">
+            <li><a href="#" class="hover:text-industrial-amber transition-colors">Início</a></li>
+            <li><a href="#servicos" class="hover:text-industrial-amber transition-colors">Serviços</a></li>
+            <li><a href="#sobre" class="hover:text-industrial-amber transition-colors">Sobre Nós</a></li>
+            <li><a href="#contato" class="hover:text-industrial-amber transition-colors">Solicitar Orçamento</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="text-white font-display font-bold uppercase tracking-widest mb-8">Contato</h4>
+          <ul class="space-y-6 text-sm text-titanium-silver/60">
+            <li class="flex items-start gap-4">
+              <i data-lucide="map-pin" class="text-industrial-amber w-5 h-5 shrink-0"></i>
+              <span>R. Nossa Sra. de Fátima, 868 <br> Cordeiros, Itajaí - SC</span>
+            </li>
+            <li class="flex items-center gap-4">
+              <i data-lucide="phone" class="text-industrial-amber w-5 h-5 shrink-0"></i>
+              <span>(47) 3346-1085</span>
+            </li>
+            <li class="flex items-center gap-4">
+              <i data-lucide="mail" class="text-industrial-amber w-5 h-5 shrink-0"></i>
+              <span>torneariaostac@gmail.com</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="pt-12 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-6 text-xs text-titanium-silver/20 uppercase tracking-widest">
+        <p>© 2026 Tornearia Ostac. Todos os direitos reservados.</p>
+        <p>Desenvolvido para Excelência Industrial.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Botão Flutuante do WhatsApp -->
+  <a href="https://wa.me/554733461085" target="_blank" rel="noopener noreferrer" class="fixed bottom-8 right-8 z-50 bg-green-600 text-white p-4 rounded-full shadow-2xl hover:scale-110 transition-transform flex items-center justify-center" aria-label="WhatsApp">
+    <svg viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
+      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+    </svg>
+  </a>
+</div>
+
+<!-- Scripts de Interatividade (Scroll do Navbar, Menu Mobile & Inicialização dos Ícones) -->
+<script>
+  // Inicializa os ícones Lucide
+  lucide.createIcons();
+
+  // Efeito de scroll na barra de navegação
+  const navbar = document.getElementById('ostac-navbar');
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 50) {
+      navbar.classList.remove('bg-transparent', 'py-6');
+      navbar.classList.add('bg-slate-900/90', 'backdrop-blur-md', 'border-b', 'border-white/10', 'py-4');
+    } else {
+      navbar.classList.add('bg-transparent', 'py-6');
+      navbar.classList.remove('bg-slate-900/90', 'backdrop-blur-md', 'border-b', 'border-white/10', 'py-4');
+    }
+  });
+
+  // Toggle do menu mobile
+  const mobileToggle = document.getElementById('ostac-mobile-toggle');
+  const mobileMenu = document.getElementById('ostac-mobile-menu');
+  const mobileLinks = document.querySelectorAll('.ostac-mobile-link');
+
+  if (mobileToggle && mobileMenu) {
+    mobileToggle.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+    });
+
+    mobileLinks.forEach(link => {
+      link.addEventListener('click', () => {
+        mobileMenu.classList.add('hidden');
+      });
+    });
+  }
+</script>
+</body>
+</html>
