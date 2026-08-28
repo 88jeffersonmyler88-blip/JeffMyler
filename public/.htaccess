@@ -1,0 +1,28 @@
+# Configurações de MIME Types para garantir que arquivos JS/CSS sejam servidos corretamente na Hostinger / Apache / LiteSpeed
+<IfModule mod_mime.c>
+  AddType application/javascript .js .mjs
+  AddType text/javascript .js .mjs
+  AddType text/css .css
+  AddType image/svg+xml .svg
+  AddType application/json .json
+  AddType font/woff .woff
+  AddType font/woff2 .woff2
+</IfModule>
+
+# Habilitar compressão Gzip se disponível
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE application/javascript text/javascript text/css text/html application/json image/svg+xml
+</IfModule>
+
+# Regras de Roteamento para SPA (Single Page Application)
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /
+  RewriteRule ^index\.html$ - [L]
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteRule . /index.html [L]
+</IfModule>
+
+# Desabilitar listagem de diretórios
+Options -Indexes

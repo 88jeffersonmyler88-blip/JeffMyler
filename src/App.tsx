@@ -282,7 +282,7 @@ const Services = () => {
                   <img 
                     src={service.image} 
                     alt={service.title} 
-                    className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 scale-110 group-hover:scale-100"
+                    className="w-full h-full object-cover transition-all duration-700 scale-100 group-hover:scale-105"
                     referrerPolicy="no-referrer"
                   />
                 </div>
@@ -328,10 +328,9 @@ const Gallery = () => {
               <img 
                 src={img} 
                 alt={`Gallery ${idx}`} 
-                className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500 group-hover:scale-110"
+                className="w-full h-full object-cover transition-all duration-500 group-hover:scale-105"
                 referrerPolicy="no-referrer"
               />
-              <div className="absolute inset-0 bg-industrial-amber/20 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none" />
             </motion.div>
           ))}
         </div>
