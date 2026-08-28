@@ -170,7 +170,7 @@ const Hero = () => {
               A ARTE DA <span className="text-industrial-amber">PRECISÃO</span> EM CADA MICRON.
             </h1>
             <p className="text-lg md:text-xl text-titanium-silver/80 max-w-2xl mb-10 leading-relaxed">
-              Desde Itajaí para o Brasil. A Tornearia Ostac une tradição artesanal e tecnologia de ponta para entregar soluções em usinagem que desafiam o tempo.
+              Oferecemos serviços completos de usinagem de torno convencional, freza pleina, soldas mig e tig. Atendendo aos mais diversos setores da indústria. Trabalhamos com peças personalizadas, fabricação de componentes mecânicos, retíficas e reparos, sempre com foco em qualidade e precisão dimensional. Nossa equipe experiente garante prazos ágeis e acabamento de alto padrão. Atendemos desde pequenas peças até projetos industriais de maior complexidade, com orçamento sob medida para cada necessidade.
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
               <a 
@@ -237,7 +237,7 @@ const Services = () => {
     {
       title: "Tornearia de Precisão",
       desc: "Recuperação e fabricação de peças complexas com tolerâncias mínimas. Especialistas em eixos, buchas e engrenagens de grande porte.",
-      image: "https://images.unsplash.com/photo-1581092160562-40aa08e78837?auto=format&fit=crop&q=80&w=800",
+      image: "https://lh3.googleusercontent.com/d/1G5V3hf7hEb64lZa4j8tyQH_QTIfgR9I1",
       icon: <Settings className="w-8 h-8" />
     },
     {
@@ -249,7 +249,7 @@ const Services = () => {
     {
       title: "Soldas e Acabamentos",
       desc: "Processos de soldagem certificados e acabamentos superficiais de alta qualidade para garantir a durabilidade de cada componente.",
-      image: "https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?auto=format&fit=crop&q=80&w=800",
+      image: "https://lh3.googleusercontent.com/d/1vZjeP1uL-RAN00bvZiMlVXrVRUch4TYA",
       icon: <ShieldCheck className="w-8 h-8" />
     }
   ];
@@ -266,19 +266,19 @@ const Services = () => {
           {services.map((service, idx) => (
             <motion.div 
               key={idx}
-              whileHover={{ y: -10 }}
-              className="group relative bg-white/5 border border-white/10 p-8 overflow-hidden"
+              whileHover={{ y: -8 }}
+              className="group relative bg-white/5 border border-white/10 p-6 md:p-8 overflow-hidden flex flex-col justify-between"
             >
               <div className="absolute top-0 right-0 p-8 opacity-10 group-hover:opacity-20 transition-opacity">
                 {service.icon}
               </div>
-              <div className="relative z-10">
-                <div className="text-industrial-amber mb-6">{service.icon}</div>
-                <h3 className="text-2xl font-bold mb-4 text-white">{service.title}</h3>
-                <p className="text-titanium-silver/60 mb-8 leading-relaxed">
+              <div className="relative z-10 flex flex-col h-full">
+                <div className="text-industrial-amber mb-4">{service.icon}</div>
+                <h3 className="text-2xl font-bold mb-3 text-white">{service.title}</h3>
+                <p className="text-titanium-silver/70 mb-6 leading-relaxed text-sm md:text-base">
                   {service.desc}
                 </p>
-                <div className="h-48 overflow-hidden mb-6">
+                <div className="h-72 sm:h-80 w-full overflow-hidden rounded-sm mt-auto border border-white/5 bg-black/40">
                   <img 
                     src={service.image} 
                     alt={service.title} 
@@ -286,9 +286,6 @@ const Services = () => {
                     referrerPolicy="no-referrer"
                   />
                 </div>
-                <a href="#contato" className="inline-flex items-center gap-2 text-sm font-display font-bold uppercase tracking-widest text-industrial-amber hover:text-white transition-colors">
-                  Saiba Mais <ArrowRight className="w-4 h-4" />
-                </a>
               </div>
             </motion.div>
           ))}
@@ -300,12 +297,12 @@ const Services = () => {
 
 const Gallery = () => {
   const images = [
-    "https://images.unsplash.com/photo-1537462715879-360eeb61a0ad?auto=format&fit=crop&q=80&w=800",
-    "https://lh3.googleusercontent.com/d/1tX59Z5A2aLamrbfaVHj00yeQ2eVLEgtv",
-    "https://images.unsplash.com/photo-1581092160562-40aa08e78837?auto=format&fit=crop&q=80&w=800",
-    "https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?auto=format&fit=crop&q=80&w=800",
-    "https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?auto=format&fit=crop&q=80&w=800",
-    "https://images.unsplash.com/photo-1513828583688-c52646db42da?auto=format&fit=crop&q=80&w=800"
+    "https://lh3.googleusercontent.com/d/16NFazF7aBgZNU4nLbwXDpIUJ58O1bjBJ",
+    "https://lh3.googleusercontent.com/d/1skTVNoAGNyUc0m7XT7ggG7qUQQHHh5iL",
+    "https://lh3.googleusercontent.com/d/1mgFLMHae2A9Fe09X6CcsTW1NsVocLRIP",
+    "https://lh3.googleusercontent.com/d/1ZMUSyD7GF_GqLR2OPKL-Cx3Wop8cuyqt",
+    "https://lh3.googleusercontent.com/d/11UEmKOF4tLVTYBWv0Kf5IR0Z1UhPUYla",
+    "https://lh3.googleusercontent.com/d/1VexSjLPmdeYIwuiJ0DiYeXzazrxh56BQ"
   ];
 
   return (
