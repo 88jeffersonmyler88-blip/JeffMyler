@@ -450,11 +450,11 @@ const About = () => {
             <img 
               src="https://lh3.googleusercontent.com/d/1tX59Z5A2aLamrbfaVHj00yeQ2eVLEgtv" 
               alt="Workshop" 
-              className="w-full h-auto md:h-[600px] md:object-cover shadow-2xl"
+              className="w-full h-auto max-h-[340px] md:max-h-none md:h-[600px] object-contain md:object-cover shadow-2xl rounded-sm"
               referrerPolicy="no-referrer"
             />
             <div 
-              className="absolute z-20 group bottom-[-10mm] right-[-5mm] md:right-[-10mm]"
+              className="absolute z-20 group -bottom-3 -right-2 md:bottom-[-10mm] md:right-[-10mm]"
             >
               {/* Shadow and Border Wrapper */}
               <div 
