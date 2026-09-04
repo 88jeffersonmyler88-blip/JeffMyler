@@ -21,6 +21,8 @@ import {
   Target,
   Award
 } from 'lucide-react';
+import { OstacLogo } from './components/OstacLogo';
+import { InteractiveStatsSection } from './components/InteractiveStatsSection';
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -167,7 +169,7 @@ const Hero = () => {
               Engenharia de Alta Performance
             </span>
             <h1 className="text-5xl md:text-8xl font-bold leading-[0.9] mb-8 text-white">
-              A ARTE DA <span className="text-industrial-amber">PRECISÃO</span> EM CADA MICRON.
+              A ARTE DA <span className="text-industrial-amber">PRECISÃO</span> EM CADA CENTÉSIMO DE M/M.
             </h1>
             <p className="text-lg md:text-xl text-white max-w-2xl mb-10 leading-relaxed font-normal">
               Oferecemos serviços completos de usinagem de torno convencional, freza pleina, soldas mig e tig. Atendendo aos mais diversos setores da indústria. Trabalhamos com peças personalizadas, fabricação de componentes mecânicos, retíficas e reparos, sempre com foco em qualidade e precisão dimensional. Nossa equipe experiente garante prazos ágeis e acabamento de alto padrão. Atendemos desde pequenas peças até projetos industriais de maior complexidade, com orçamento sob medida para cada necessidade.
@@ -180,12 +182,6 @@ const Hero = () => {
                 Falar com um Especialista
                 <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
               </a>
-              <a 
-                href="#servicos"
-                className="px-8 py-4 border border-white/20 font-display font-bold uppercase tracking-widest flex items-center justify-center hover:bg-white/10 transition-all"
-              >
-                Nossos Serviços
-              </a>
             </div>
           </motion.div>
         </div>
@@ -194,41 +190,6 @@ const Hero = () => {
       {/* Decorative Grid */}
       <div className="absolute bottom-0 right-0 w-1/3 h-1/3 border-t border-l border-white/5 pointer-events-none hidden lg:block" />
     </section>
-  );
-};
-
-const StatsBar = () => {
-  const stats = [
-    { label: "Anos de Experiência", value: "+30", icon: <Clock className="w-5 h-5" /> },
-    { label: "Precisão Técnica", value: "100%", icon: <Target className="w-5 h-5" /> },
-    { label: "Projetos Entregues", value: "+1000", icon: <Award className="w-5 h-5" /> },
-  ];
-
-  return (
-    <div className="bg-white text-slate-black py-12 relative z-30">
-      <div className="container mx-auto px-6">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {stats.map((stat, idx) => (
-            <motion.div 
-              key={idx}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: idx * 0.1 }}
-              className="flex items-center gap-6 md:justify-center border-b md:border-b-0 md:border-r last:border-0 border-slate-black/10 pb-8 md:pb-0"
-            >
-              <div className="p-3 bg-slate-black text-industrial-amber rounded-sm">
-                {stat.icon}
-              </div>
-              <div>
-                <div className="text-4xl font-display font-bold">{stat.value}</div>
-                <div className="text-xs uppercase tracking-widest font-semibold opacity-60">{stat.label}</div>
-              </div>
-            </motion.div>
-          ))}
-        </div>
-      </div>
-    </div>
   );
 };
 
@@ -517,6 +478,14 @@ const About = () => {
         </div>
 
         <div className="mb-24">
+          {/* Imagem do Soldador OSTAC centralizada acima do texto 'ATUAMOS NOS SEGMENTOS DE:' */}
+          <div className="flex justify-center mb-8">
+            <OstacLogo 
+              className="w-52 sm:w-60 md:w-68 h-auto object-contain drop-shadow-md"
+              alt="OSTAC Soldador e Usinagem" 
+            />
+          </div>
+
           <h3 className="text-3xl font-bold mb-12 text-center">ATUAMOS NOS <span className="text-industrial-amber">SEGMENTOS</span> DE:</h3>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {segments.map((seg, i) => (
@@ -619,7 +588,6 @@ const Footer = () => {
               </li>
             </ul>
           </div>
-
         </div>
 
         <div className="pt-12 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-6 text-xs text-titanium-silver/20 uppercase tracking-widest">
@@ -638,7 +606,7 @@ export default function App() {
       <Navbar />
       <main>
         <Hero />
-        <StatsBar />
+        <InteractiveStatsSection />
         <Services />
         <Gallery />
         <About />

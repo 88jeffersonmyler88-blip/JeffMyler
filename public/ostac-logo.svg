@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 680" width="1000" height="680">
+  <defs>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="6" stdDeviation="8" flood-color="rgba(0,0,0,0.25)" />
+    </filter>
+  </defs>
+  
+  <g filter="url(#shadow)">
+    <!-- Outer Sticker White Contour -->
+    <!-- Background shape behind everything to give the sticker effect -->
+    <path d="M120 120 C 100 80, 280 10, 330 25 C 380 40, 710 80, 735 150 C 760 220, 680 320, 610 500 L 980 500 C 995 500, 995 620, 970 635 C 930 650, 210 650, 190 630 C 170 610, 20 480, 10 370 C 0 250, 130 140, 120 120 Z" fill="#ffffff" stroke="#e2e8f0" stroke-width="4" />
+
+    <!-- Dark Blue Silhouette Foundation (#0C1B33) -->
+    <!-- Main Character Body & Hood -->
+    <g fill="#0C1B33">
+      <!-- Welding Hood -->
+      <path d="M 100 135 C 85 140, 95 90, 130 65 C 180 35, 300 15, 325 35 C 340 50, 310 130, 330 180 C 345 220, 330 260, 320 290 C 270 330, 200 375, 175 425 C 160 375, 140 325, 115 315 C 80 300, 70 230, 95 185 Z" />
+      
+      <!-- Visor and Lines -->
+      <rect x="150" y="295" width="160" height="75" rx="25" fill="#ffffff" />
+      <rect x="165" y="305" width="130" height="55" rx="16" fill="#0C1B33" />
+      
+      <!-- Helmet ventilation lines -->
+      <path d="M 135 120 L 285 85 M 145 155 L 295 120 M 155 190 L 305 155 M 165 225 L 315 190 M 175 260 L 325 225" stroke="#ffffff" stroke-width="9" stroke-linecap="round" />
+
+      <!-- Welder Torso & Shoulder -->
+      <path d="M 320 135 C 380 110, 480 100, 560 120 C 660 150, 720 220, 680 310 C 640 400, 520 450, 450 470 C 430 430, 380 380, 310 380 C 240 380, 200 440, 160 480 C 130 450, 70 410, 50 330 C 30 250, 80 170, 120 150 Z" />
+      
+      <!-- Torso Muscle & Wrinkle Highlights (White) -->
+      <path d="M 380 135 C 440 160, 480 220, 470 290 C 460 350, 400 400, 380 420" fill="none" stroke="#ffffff" stroke-width="16" stroke-linecap="round" />
+      <path d="M 510 165 C 570 190, 640 240, 620 320" fill="none" stroke="#ffffff" stroke-width="14" stroke-linecap="round" />
+      <path d="M 270 380 C 330 390, 430 400, 480 370" fill="none" stroke="#ffffff" stroke-width="12" stroke-linecap="round" />
+      <path d="M 80 340 C 120 370, 160 420, 180 480" fill="none" stroke="#ffffff" stroke-width="14" stroke-linecap="round" />
+      <path d="M 70 240 C 100 270, 130 320, 140 370" fill="none" stroke="#ffffff" stroke-width="10" stroke-linecap="round" />
+      
+      <!-- Welder Hands & Torch -->
+      <path d="M 350 410 C 370 390, 450 380, 490 410 C 510 425, 490 470, 440 470 C 400 470, 370 450, 350 410 Z" fill="#ffffff" stroke="#0C1B33" stroke-width="8" />
+      <path d="M 420 420 L 360 520 L 380 530 L 440 430 Z" fill="#0C1B33" />
+      
+      <!-- Spark Explosion & Rays at Bottom Left of Torch -->
+      <path d="M 360 520 L 320 480 L 330 530 L 280 510 L 320 550 L 250 560 L 315 580 L 260 610 L 330 600 L 310 650 L 360 610 L 380 660 L 390 600 L 440 630 L 410 575 L 470 565 L 410 545 L 430 500 Z" fill="#ffffff" />
+      <path d="M 360 520 L 335 495 L 340 530 L 305 515 L 330 550 L 280 560 L 325 575 L 290 600 L 340 595 L 325 630 L 360 605 L 375 640 L 385 595 L 420 615 L 400 575 L 445 565 L 400 548 L 415 515 Z" fill="#0C1B33" />
+    </g>
+
+    <!-- OSTAC Bold Typographic Banner (Sticker Style with Thick White Outline) -->
+    <!-- White background plaque for OSTAC -->
+    <path d="M 190 440 L 980 440 C 995 440, 995 625, 980 630 L 190 630 C 175 625, 175 440, 190 440 Z" fill="#ffffff" stroke="#ffffff" stroke-width="24" stroke-linejoin="round" />
+    
+    <!-- Text OSTAC -->
+    <text x="585" y="610" font-family="'Arial Black', 'Impact', 'Oswald', sans-serif" font-weight="900" font-size="205" fill="#0C1B33" text-anchor="middle" letter-spacing="-2">OSTAC</text>
+  </g>
+</svg>

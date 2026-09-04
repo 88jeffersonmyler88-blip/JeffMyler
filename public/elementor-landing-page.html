@@ -181,7 +181,7 @@
           Engenharia de Alta Performance
         </span>
         <h1 class="text-5xl md:text-8xl font-bold leading-[0.9] mb-8 text-white">
-          A ARTE DA <span class="text-industrial-amber">PRECISÃO</span> EM CADA MICRON.
+          A ARTE DA <span class="text-industrial-amber">PRECISÃO</span> EM CADA CENTÉSIMO DE M/M.
         </h1>
         <p class="text-lg md:text-xl text-white max-w-2xl mb-10 leading-relaxed font-normal">
           Oferecemos serviços completos de usinagem de torno convencional, freza pleina, soldas mig e tig. Atendendo aos mais diversos setores da indústria. Trabalhamos com peças personalizadas, fabricação de componentes mecânicos, retíficas e reparos, sempre com foco em qualidade e precisão dimensional. Nossa equipe experiente garante prazos ágeis e acabamento de alto padrão. Atendemos desde pequenas peças até projetos industriais de maior complexidade, com orçamento sob medida para cada necessidade.
@@ -191,9 +191,6 @@
             Falar com um Especialista
             <i data-lucide="arrow-right" class="w-5 h-5 group-hover:translate-x-1 transition-transform"></i>
           </a>
-          <a href="#servicos" class="px-8 py-4 border border-white/20 font-display font-bold uppercase tracking-widest flex items-center justify-center hover:bg-white/10 transition-all text-white">
-            Nossos Serviços
-          </a>
         </div>
       </div>
     </div>
@@ -201,42 +198,105 @@
     <div class="absolute bottom-0 right-0 w-1/3 h-1/3 border-t border-l border-white/5 pointer-events-none hidden lg:block"></div>
   </section>
 
-  <!-- Stats Bar -->
-  <div class="bg-white text-slate-black py-12 relative z-30">
-    <div class="container mx-auto px-6">
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-        <div class="flex items-center gap-6 md:justify-center border-b md:border-b-0 md:border-r border-slate-black/10 pb-8 md:pb-0">
-          <div class="p-3 bg-slate-black text-industrial-amber rounded-sm">
-            <i data-lucide="clock" class="w-5 h-5"></i>
+  <!-- Stats Bar Interativa com Números e Letras Animadas -->
+  <section id="estatisticas-ostac" class="bg-gradient-to-b from-white via-slate-50/80 to-white text-slate-black py-20 relative z-30 overflow-hidden border-y border-slate-200/60">
+    <!-- Grid sutil de precisão técnica -->
+    <div class="absolute inset-0 pointer-events-none opacity-[0.035] [background-image:radial-gradient(#0d162b_1px,transparent_1px)] [background-size:24px_24px]"></div>
+
+    <div class="container mx-auto px-6 relative z-10">
+      <!-- Imagem do Soldador OSTAC centralizada acima das estatísticas -->
+      <div class="flex flex-col items-center justify-center mb-12">
+        <img src="noaaa.png" alt="OSTAC Soldador e Usinagem" class="w-56 sm:w-64 md:w-72 h-auto object-contain drop-shadow-md">
+        <div class="mt-3 flex items-center gap-2 text-xs font-mono tracking-widest text-slate-400 uppercase font-semibold">
+          <span class="w-2 h-2 rounded-full bg-emerald-500 inline-block animate-pulse"></span>
+          <span>Engenharia & Soluções Industriais de Alta Precisão</span>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 max-w-6xl mx-auto">
+        <!-- Card 1 -->
+        <div class="ostac-stat-card relative group p-6 sm:p-8 rounded-2xl bg-gradient-to-b from-white via-amber-50/20 to-slate-50 border border-slate-200/80 shadow-md hover:shadow-xl hover:border-amber-400/50 transition-all duration-500 overflow-hidden flex flex-col justify-between">
+          <div class="flex items-center mb-5 relative z-10">
+            <div class="flex items-center gap-3">
+              <div class="p-3.5 bg-slate-900 text-industrial-amber rounded-xl shadow-md group-hover:bg-industrial-amber group-hover:text-slate-900 transition-colors duration-300">
+                <i data-lucide="clock" class="w-5 h-5"></i>
+              </div>
+              <div class="h-1.5 w-8 bg-amber-200 rounded-full group-hover:w-14 group-hover:bg-industrial-amber transition-all duration-500"></div>
+            </div>
           </div>
-          <div>
-            <div class="text-4xl font-display font-bold">+30</div>
-            <div class="text-xs uppercase tracking-widest font-semibold opacity-60">Anos de Experiência</div>
+
+          <div class="relative z-10 mb-2 ostac-stat-number-wrapper transition-transform duration-300">
+            <div class="text-5xl sm:text-6xl lg:text-7xl font-display font-black text-slate-900 tracking-tight flex items-baseline select-none">
+              <span class="text-industrial-amber mr-0.5">+</span><span class="ostac-counter" data-target="20">0</span>
+            </div>
           </div>
+
+          <div class="relative z-10 pt-2 border-t border-slate-100 ostac-stat-label-wrapper transition-transform duration-300">
+            <div class="text-sm sm:text-base font-bold uppercase tracking-wider text-slate-800 font-display ostac-animated-label">
+              Anos de Experiência
+            </div>
+            <p class="text-xs text-slate-500 font-medium mt-0.5">Tradição em usinagem pesada e caldeiraria</p>
+          </div>
+
+          <div class="absolute -bottom-6 -right-4 font-black font-display text-8xl text-slate-900/[0.03] select-none pointer-events-none group-hover:text-amber-500/[0.08] transition-colors duration-500">+20</div>
         </div>
 
-        <div class="flex items-center gap-6 md:justify-center border-b md:border-b-0 md:border-r border-slate-black/10 pb-8 md:pb-0">
-          <div class="p-3 bg-slate-black text-industrial-amber rounded-sm">
-            <i data-lucide="target" class="w-5 h-5"></i>
+        <!-- Card 2 -->
+        <div class="ostac-stat-card relative group p-6 sm:p-8 rounded-2xl bg-gradient-to-b from-white via-amber-50/20 to-slate-50 border border-slate-200/80 shadow-md hover:shadow-xl hover:border-amber-400/50 transition-all duration-500 overflow-hidden flex flex-col justify-between">
+          <div class="flex items-center mb-5 relative z-10">
+            <div class="flex items-center gap-3">
+              <div class="p-3.5 bg-slate-900 text-industrial-amber rounded-xl shadow-md group-hover:bg-industrial-amber group-hover:text-slate-900 transition-colors duration-300">
+                <i data-lucide="target" class="w-5 h-5"></i>
+              </div>
+              <div class="h-1.5 w-8 bg-amber-200 rounded-full group-hover:w-14 group-hover:bg-industrial-amber transition-all duration-500"></div>
+            </div>
           </div>
-          <div>
-            <div class="text-4xl font-display font-bold">100%</div>
-            <div class="text-xs uppercase tracking-widest font-semibold opacity-60">Precisão Técnica</div>
+
+          <div class="relative z-10 mb-2 ostac-stat-number-wrapper transition-transform duration-300">
+            <div class="text-5xl sm:text-6xl lg:text-7xl font-display font-black text-slate-900 tracking-tight flex items-baseline select-none">
+              <span class="ostac-counter" data-target="100">0</span><span class="text-industrial-amber ml-0.5">%</span>
+            </div>
           </div>
+
+          <div class="relative z-10 pt-2 border-t border-slate-100 ostac-stat-label-wrapper transition-transform duration-300">
+            <div class="text-sm sm:text-base font-bold uppercase tracking-wider text-slate-800 font-display ostac-animated-label">
+              Precisão Técnica
+            </div>
+            <p class="text-xs text-slate-500 font-medium mt-0.5">Tolerâncias rigorosas e conformidade ISO</p>
+          </div>
+
+          <div class="absolute -bottom-6 -right-4 font-black font-display text-8xl text-slate-900/[0.03] select-none pointer-events-none group-hover:text-amber-500/[0.08] transition-colors duration-500">100%</div>
         </div>
 
-        <div class="flex items-center gap-6 md:justify-center">
-          <div class="p-3 bg-slate-black text-industrial-amber rounded-sm">
-            <i data-lucide="award" class="w-5 h-5"></i>
+        <!-- Card 3 -->
+        <div class="ostac-stat-card relative group p-6 sm:p-8 rounded-2xl bg-gradient-to-b from-white via-amber-50/20 to-slate-50 border border-slate-200/80 shadow-md hover:shadow-xl hover:border-amber-400/50 transition-all duration-500 overflow-hidden flex flex-col justify-between">
+          <div class="flex items-center mb-5 relative z-10">
+            <div class="flex items-center gap-3">
+              <div class="p-3.5 bg-slate-900 text-industrial-amber rounded-xl shadow-md group-hover:bg-industrial-amber group-hover:text-slate-900 transition-colors duration-300">
+                <i data-lucide="award" class="w-5 h-5"></i>
+              </div>
+              <div class="h-1.5 w-8 bg-amber-200 rounded-full group-hover:w-14 group-hover:bg-industrial-amber transition-all duration-500"></div>
+            </div>
           </div>
-          <div>
-            <div class="text-4xl font-display font-bold">+1000</div>
-            <div class="text-xs uppercase tracking-widest font-semibold opacity-60">Projetos Entregues</div>
+
+          <div class="relative z-10 mb-2 ostac-stat-number-wrapper transition-transform duration-300">
+            <div class="text-5xl sm:text-6xl lg:text-7xl font-display font-black text-slate-900 tracking-tight flex items-baseline select-none">
+              <span class="text-industrial-amber mr-0.5">+</span><span class="ostac-counter" data-target="1000">0</span>
+            </div>
           </div>
+
+          <div class="relative z-10 pt-2 border-t border-slate-100 ostac-stat-label-wrapper transition-transform duration-300">
+            <div class="text-sm sm:text-base font-bold uppercase tracking-wider text-slate-800 font-display ostac-animated-label">
+              Projetos
+            </div>
+            <p class="text-xs text-slate-500 font-medium mt-0.5">Obras entregues para indústrias e portos</p>
+          </div>
+
+          <div class="absolute -bottom-6 -right-4 font-black font-display text-8xl text-slate-900/[0.03] select-none pointer-events-none group-hover:text-amber-500/[0.08] transition-colors duration-500">+1000</div>
         </div>
       </div>
     </div>
-  </div>
+  </section>
 
   <!-- Serviços -->
   <section id="servicos" class="py-24 bg-slate-black relative overflow-hidden">
@@ -383,6 +443,11 @@
 
       <!-- Segmentos de Atuação -->
       <div class="mb-24">
+        <!-- Imagem do Soldador OSTAC centralizada acima do texto 'ATUAMOS NOS SEGMENTOS DE:' -->
+        <div class="flex justify-center mb-8">
+          <img src="noaaa.png" alt="OSTAC Soldador e Usinagem" class="w-52 sm:w-60 md:w-68 h-auto object-contain drop-shadow-md">
+        </div>
+
         <h3 class="text-3xl font-bold mb-12 text-center">ATUAMOS NOS <span class="text-industrial-amber">SEGMENTOS</span> DE:</h3>
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           <div class="p-8 border border-slate-black/10 hover:border-industrial-amber transition-colors">
@@ -629,6 +694,68 @@
         mobileMenu.classList.add('hidden');
       });
     });
+  }
+
+  // Animação Interativa de Números e Letras no Scroll e Mouse
+  const statsSection = document.getElementById('estatisticas-ostac');
+  const counters = document.querySelectorAll('.ostac-counter');
+  let animated = false;
+
+  const startCounters = () => {
+    counters.forEach(counter => {
+      const target = parseInt(counter.getAttribute('data-target') || '0', 10);
+      const duration = 1800;
+      const startTime = performance.now();
+
+      const updateCount = (now) => {
+        const elapsed = now - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+        const easeOut = progress === 1 ? 1 : 1 - Math.pow(2, -10 * progress);
+        const current = Math.floor(easeOut * target);
+        counter.textContent = current.toLocaleString('pt-BR');
+
+        if (progress < 1) {
+          requestAnimationFrame(updateCount);
+        } else {
+          counter.textContent = target.toLocaleString('pt-BR');
+        }
+      };
+
+      requestAnimationFrame(updateCount);
+    });
+  };
+
+  if ('IntersectionObserver' in window && statsSection) {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting && !animated) {
+          animated = true;
+          startCounters();
+        }
+      });
+    }, { threshold: 0.25 });
+    observer.observe(statsSection);
+  } else {
+    startCounters();
+  }
+
+  // Efeito Parallax de Letras e Números ativado puramente no SCROLL da tela
+  const cards = document.querySelectorAll('.ostac-stat-card');
+  if (statsSection) {
+    window.addEventListener('scroll', () => {
+      const rect = statsSection.getBoundingClientRect();
+      const windowHeight = window.innerHeight;
+      if (rect.top < windowHeight && rect.bottom > 0) {
+        const scrollFactor = (windowHeight / 2 - (rect.top + rect.height / 2)) * 0.12;
+        cards.forEach((card, idx) => {
+          const numWrapper = card.querySelector('.ostac-stat-number-wrapper');
+          const direction = idx === 1 ? -1 : 1;
+          if (numWrapper) {
+            numWrapper.style.transform = `translate3d(${(idx - 1) * -4}px, ${-scrollFactor * direction}px, 0)`;
+          }
+        });
+      }
+    }, { passive: true });
   }
 </script>
 </body>
