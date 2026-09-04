@@ -189,7 +189,6 @@
           class="w-56 sm:w-64 md:w-72 h-auto object-contain drop-shadow-md cursor-pointer transition-transform duration-300 hover:scale-105"
         />
         <div class="mt-3 flex items-center gap-2 text-xs font-mono tracking-widest text-slate-500 uppercase font-semibold">
-          <span class="w-2 h-2 rounded-full bg-emerald-500 animate-ping inline-block"></span>
           <span>Engenharia & Soluções Industriais de Alta Precisão</span>
         </div>
       </div>
@@ -452,49 +451,97 @@
                   <i data-lucide="mail" class="w-5 h-5"></i>
                 </div>
                 <div>
-                  <p class="text-xs uppercase tracking-widest opacity-40">E-mail</p>
+                  <p class="text-xs uppercase tracking-widest opacity-40">E-mail para contato</p>
                   <p class="font-bold">torneariaostac@gmail.com</p>
                 </div>
               </div>
             </div>
           </div>
           
-          <form id="contact-form" class="space-y-4">
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                        <form id="contact-form" class="space-y-4">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <input 
                 type="text" 
                 id="cf-name"
                 required
-                placeholder="Nome Completo" 
-                class="bg-white/5 border border-white/10 p-4 w-full focus:outline-none focus:border-industrial-amber transition-colors text-white"
+                placeholder="Nome Completo *" 
+                class="bg-white/5 border border-white/10 p-4 w-full focus:outline-none focus:border-industrial-amber transition-colors text-white placeholder-titanium-silver/40 text-sm"
+              />
+              <input 
+                type="email" 
+                id="cf-email"
+                required
+                placeholder="Seu E-mail *" 
+                class="bg-white/5 border border-white/10 p-4 w-full focus:outline-none focus:border-industrial-amber transition-colors text-white placeholder-titanium-silver/40 text-sm"
+              />
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <input 
+                type="tel" 
+                id="cf-phone"
+                placeholder="Telefone / WhatsApp" 
+                class="bg-white/5 border border-white/10 p-4 w-full focus:outline-none focus:border-industrial-amber transition-colors text-white placeholder-titanium-silver/40 text-sm"
               />
               <input 
                 type="text" 
-                id="cf-phone"
-                required
-                placeholder="Telefone / WhatsApp" 
-                class="bg-white/5 border border-white/10 p-4 w-full focus:outline-none focus:border-industrial-amber transition-colors text-white"
+                id="cf-subject"
+                placeholder="Assunto (Ex: Usinagem de Eixo)" 
+                class="bg-white/5 border border-white/10 p-4 w-full focus:outline-none focus:border-industrial-amber transition-colors text-white placeholder-titanium-silver/40 text-sm"
               />
             </div>
-            <input 
-              type="text" 
-              id="cf-subject"
-              placeholder="Assunto (Ex: Orçamento de Eixo)" 
-              class="bg-white/5 border border-white/10 p-4 w-full focus:outline-none focus:border-industrial-amber transition-colors text-white"
-            />
             <textarea 
               id="cf-message"
               required
-              placeholder="Descreva sua necessidade técnica..." 
+              placeholder="Descreva sua necessidade técnica (medidas, material, prazos)... *" 
               rows="4"
-              class="bg-white/5 border border-white/10 p-4 w-full focus:outline-none focus:border-industrial-amber transition-colors resize-none text-white"
+              class="bg-white/5 border border-white/10 p-4 w-full focus:outline-none focus:border-industrial-amber transition-colors resize-none text-white placeholder-titanium-silver/40 text-sm"
             ></textarea>
+
             <button 
               type="submit"
-              class="w-full bg-industrial-amber text-slate-black font-display font-bold uppercase tracking-widest py-4 hover:bg-white transition-all cursor-pointer"
+              id="cf-submit-btn"
+              class="w-full bg-industrial-amber text-slate-black font-display font-bold uppercase tracking-wider sm:tracking-widest py-3.5 sm:py-4 px-4 sm:px-6 text-sm sm:text-base hover:bg-amber-400 active:scale-[0.98] transition-all duration-200 flex items-center justify-center gap-2.5 shadow-lg shadow-industrial-amber/10 hover:shadow-industrial-amber/25 cursor-pointer"
             >
-              Enviar Mensagem
+              <i data-lucide="send" class="w-5 h-5 shrink-0"></i>
+              <span id="cf-submit-text">Enviar Mensagem</span>
             </button>
+
+            <div id="cf-feedback-box" class="hidden mt-4 p-4 bg-industrial-amber/10 border border-industrial-amber/30 rounded-sm space-y-3">
+              <div class="flex items-start gap-2.5">
+                <i data-lucide="check-circle-2" class="w-4 h-4 text-industrial-amber shrink-0 mt-0.5"></i>
+                <p class="text-xs text-white leading-relaxed">
+                  Seu aplicativo de e-mail foi acionado com destino para <strong>torneariaostac@gmail.com</strong>. Se preferir, utilize um dos atalhos:
+                </p>
+              </div>
+              <div class="flex flex-wrap gap-2 pt-1">
+                <button
+                  type="button"
+                  id="cf-btn-gmail"
+                  class="text-xs font-bold uppercase tracking-wider bg-white/10 hover:bg-white/20 text-white px-3 py-2 rounded flex items-center gap-1.5 transition-colors cursor-pointer"
+                >
+                  <i data-lucide="external-link" class="w-3.5 h-3.5 text-industrial-amber"></i>
+                  Abrir no Gmail Web
+                </button>
+                <button
+                  type="button"
+                  id="cf-btn-copy"
+                  class="text-xs font-bold uppercase tracking-wider bg-white/10 hover:bg-white/20 text-white px-3 py-2 rounded flex items-center gap-1.5 transition-colors cursor-pointer"
+                >
+                  <i data-lucide="copy" class="w-3.5 h-3.5 text-industrial-amber"></i>
+                  <span id="cf-copy-text">Copiar Dados</span>
+                </button>
+                <a
+                  id="cf-link-wa"
+                  href="#"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="text-xs font-bold uppercase tracking-wider bg-[#25D366]/20 hover:bg-[#25D366]/30 text-[#25D366] border border-[#25D366]/40 px-3 py-2 rounded flex items-center gap-1.5 transition-colors"
+                >
+                  <i data-lucide="phone" class="w-3.5 h-3.5"></i>
+                  Avisar pelo WhatsApp
+                </a>
+              </div>
+            </div>
           </form>
         </div>
       </div>
@@ -822,24 +869,75 @@
       }
     });
 
-    // Form Submission to WhatsApp
+                // Form Submission with recipient torneariaostac@gmail.com
     const form = document.getElementById("contact-form");
     if (form) {
       form.addEventListener("submit", (e) => {
         e.preventDefault();
-        const name = document.getElementById("cf-name").value;
-        const phone = document.getElementById("cf-phone").value;
-        const subject = document.getElementById("cf-subject").value;
-        const message = document.getElementById("cf-message").value;
+        const name = document.getElementById("cf-name") ? document.getElementById("cf-name").value.trim() : "";
+        const email = document.getElementById("cf-email") ? document.getElementById("cf-email").value.trim() : "";
+        const phone = document.getElementById("cf-phone") ? document.getElementById("cf-phone").value.trim() : "";
+        const subjectInput = document.getElementById("cf-subject") ? document.getElementById("cf-subject").value.trim() : "";
+        const message = document.getElementById("cf-message") ? document.getElementById("cf-message").value.trim() : "";
 
-        const text = "*Solicitação de Orçamento - Tornearia Ostac*\n\n" +
-          "*Nome/Empresa:* " + name + "\n" +
-          "*Telefone:* " + phone + "\n" +
-          (subject ? "*Assunto:* " + subject + "\n" : "") +
-          "*Necessidade Técnica:* " + message;
+        const subject = subjectInput ? `[Orçamento OSTAC] ${subjectInput}` : `[Contato Site OSTAC] Orçamento de Usinagem - ${name || 'Cliente'}`;
 
-        const url = "https://wa.me/554733461085?text=" + encodeURIComponent(text);
-        window.open(url, "_blank");
+        const body = `Solicitação de Orçamento / Contato - Tornearia Ostac\n\n` +
+          `Destinatário: Tornearia Ostac (torneariaostac@gmail.com)\n` +
+          `--------------------------------------------------\n` +
+          `• Solicitante / Empresa: ${name || 'Não informado'}\n` +
+          `• E-mail para retorno: ${email || 'Não informado'}\n` +
+          `• Telefone / WhatsApp: ${phone || 'Não informado'}\n` +
+          `• Assunto: ${subjectInput || 'Solicitação Técnica'}\n\n` +
+          `Descrição da Necessidade Técnica / Projeto:\n` +
+          `${message || 'Solicito contato para análise de projeto e orçamento de usinagem.'}\n\n` +
+          `--------------------------------------------------\n` +
+          `Enviado através do formulário de contato do site Tornearia Ostac.`;
+
+        const mailtoUrl = `mailto:torneariaostac@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+
+        window.location.href = mailtoUrl;
+
+        const submitText = document.getElementById("cf-submit-text");
+        if (submitText) {
+          submitText.textContent = "E-mail Preparado para torneariaostac@gmail.com";
+        }
+
+        const feedbackBox = document.getElementById("cf-feedback-box");
+        if (feedbackBox) {
+          feedbackBox.classList.remove("hidden");
+        }
+
+        const btnGmail = document.getElementById("cf-btn-gmail");
+        if (btnGmail) {
+          btnGmail.onclick = () => {
+            const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=torneariaostac@gmail.com&su=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+            window.open(gmailUrl, "_blank");
+          };
+        }
+
+        const btnCopy = document.getElementById("cf-btn-copy");
+        const copyText = document.getElementById("cf-copy-text");
+        if (btnCopy) {
+          btnCopy.onclick = () => {
+            navigator.clipboard.writeText(
+              `Destinatário: torneariaostac@gmail.com\nNome: ${name}\nE-mail: ${email}\nTelefone: ${phone}\nAssunto: ${subjectInput}\nMensagem:\n${message}`
+            );
+            if (copyText) copyText.textContent = "Dados Copiados!";
+            setTimeout(() => {
+              if (copyText) copyText.textContent = "Copiar Dados";
+            }, 3000);
+          };
+        }
+
+        const linkWa = document.getElementById("cf-link-wa");
+        if (linkWa) {
+          linkWa.href = `https://wa.me/554733461085?text=${encodeURIComponent(`Olá! Enviei uma solicitação de orçamento para torneariaostac@gmail.com. Meu nome é ${name}.`)}`;
+        }
+
+        if (window.lucide && window.lucide.createIcons) {
+          window.lucide.createIcons();
+        }
       });
     }
   </script>

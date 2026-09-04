@@ -209,8 +209,7 @@ export const InteractiveStatsSection: React.FC = () => {
             className="w-56 sm:w-64 md:w-72 h-auto object-contain drop-shadow-md"
             alt="OSTAC Soldador e Usinagem" 
           />
-          <div className="mt-3 flex items-center gap-2 text-xs font-mono tracking-widest text-slate-400 uppercase font-semibold">
-            <span className="w-2 h-2 rounded-full bg-emerald-500 animate-ping inline-block" />
+          <div className="mt-3 flex items-center justify-center text-xs font-mono tracking-widest text-slate-400 uppercase font-semibold text-center">
             <span>Engenharia & Soluções Industriais de Alta Precisão</span>
           </div>
         </div>

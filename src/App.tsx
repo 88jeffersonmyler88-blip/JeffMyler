@@ -19,7 +19,13 @@ import {
   X,
   Clock,
   Target,
-  Award
+  Award,
+  Send,
+  CheckCircle2,
+  Copy,
+  Check,
+  ExternalLink,
+  Loader2
 } from 'lucide-react';
 import { OstacLogo } from './components/OstacLogo';
 import { InteractiveStatsSection } from './components/InteractiveStatsSection';
@@ -300,6 +306,69 @@ const Gallery = () => {
 };
 
 const ContactForm = () => {
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    phone: '',
+    subject: '',
+    message: ''
+  });
+  const [status, setStatus] = useState<'idle' | 'sending' | 'sent'>('idle');
+  const [copied, setCopied] = useState(false);
+
+  const getSubjectText = () => {
+    return formData.subject.trim() 
+      ? `[Orçamento OSTAC] ${formData.subject.trim()}` 
+      : `[Contato Site OSTAC] Orçamento de Usinagem - ${formData.name.trim() || 'Cliente'}`;
+  };
+
+  const getBodyText = () => {
+    return `Solicitação de Orçamento / Contato - Tornearia Ostac
+
+Destinatário: Tornearia Ostac (torneariaostac@gmail.com)
+--------------------------------------------------
+• Solicitante / Empresa: ${formData.name.trim() || 'Não informado'}
+• E-mail para retorno: ${formData.email.trim() || 'Não informado'}
+• Telefone / WhatsApp: ${formData.phone.trim() || 'Não informado'}
+• Assunto: ${formData.subject.trim() || 'Solicitação Técnica'}
+
+Descrição da Necessidade Técnica / Projeto:
+${formData.message.trim() || 'Solicito contato para análise de projeto e orçamento de usinagem.'}
+
+--------------------------------------------------
+Enviado através do formulário de contato do site Tornearia Ostac.`;
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    setStatus('sending');
+
+    const subject = getSubjectText();
+    const body = getBodyText();
+    // Destinatário definido como torneariaostac@gmail.com
+    const mailtoUrl = `mailto:torneariaostac@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+
+    window.location.href = mailtoUrl;
+
+    setTimeout(() => {
+      setStatus('sent');
+    }, 500);
+  };
+
+  const openGmailWeb = () => {
+    const subject = getSubjectText();
+    const body = getBodyText();
+    const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=torneariaostac@gmail.com&su=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    window.open(gmailUrl, '_blank', 'noopener,noreferrer');
+  };
+
+  const copyEmailDetails = () => {
+    const textToCopy = `Destinatário: torneariaostac@gmail.com\nNome: ${formData.name}\nE-mail: ${formData.email}\nTelefone: ${formData.phone}\nAssunto: ${formData.subject}\nMensagem:\n${formData.message}`;
+    navigator.clipboard.writeText(textToCopy);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 3000);
+  };
+
   return (
     <section id="contato" className="py-24 bg-white text-slate-black">
       <div className="container mx-auto px-6">
@@ -315,7 +384,7 @@ const ContactForm = () => {
               
               <div className="space-y-6">
                 <div className="flex items-center gap-4">
-                  <div className="w-12 h-12 border border-industrial-amber flex items-center justify-center text-industrial-amber">
+                  <div className="w-12 h-12 border border-industrial-amber flex items-center justify-center text-industrial-amber shrink-0">
                     <Phone className="w-5 h-5" />
                   </div>
                   <div>
@@ -324,43 +393,125 @@ const ContactForm = () => {
                   </div>
                 </div>
                 <div className="flex items-center gap-4">
-                  <div className="w-12 h-12 border border-industrial-amber flex items-center justify-center text-industrial-amber">
+                  <div className="w-12 h-12 border border-industrial-amber flex items-center justify-center text-industrial-amber shrink-0">
                     <Mail className="w-5 h-5" />
                   </div>
                   <div>
-                    <p className="text-xs uppercase tracking-widest opacity-40">E-mail</p>
-                    <p className="font-bold">torneariaostac@gmail.com</p>
+                    <p className="text-xs uppercase tracking-widest opacity-40">E-mail para contato</p>
+                    <p className="font-bold text-industrial-amber">torneariaostac@gmail.com</p>
                   </div>
                 </div>
               </div>
             </div>
             
-            <form className="space-y-4" onSubmit={(e) => e.preventDefault()}>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <form className="space-y-4" onSubmit={handleSubmit}>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <input 
                   type="text" 
-                  placeholder="Nome Completo" 
-                  className="bg-white/5 border border-white/10 p-4 w-full focus:outline-none focus:border-industrial-amber transition-colors"
+                  required
+                  placeholder="Nome Completo *" 
+                  value={formData.name}
+                  onChange={(e) => setFormData(prev => ({ ...prev, name: e.target.value }))}
+                  className="bg-white/5 border border-white/10 p-4 w-full focus:outline-none focus:border-industrial-amber transition-colors text-white placeholder-titanium-silver/40 text-sm"
                 />
                 <input 
                   type="email" 
-                  placeholder="E-mail Corporativo" 
-                  className="bg-white/5 border border-white/10 p-4 w-full focus:outline-none focus:border-industrial-amber transition-colors"
+                  required
+                  placeholder="Seu E-mail *" 
+                  value={formData.email}
+                  onChange={(e) => setFormData(prev => ({ ...prev, email: e.target.value }))}
+                  className="bg-white/5 border border-white/10 p-4 w-full focus:outline-none focus:border-industrial-amber transition-colors text-white placeholder-titanium-silver/40 text-sm"
                 />
               </div>
-              <input 
-                type="text" 
-                placeholder="Assunto (Ex: Orçamento de Eixo)" 
-                className="bg-white/5 border border-white/10 p-4 w-full focus:outline-none focus:border-industrial-amber transition-colors"
-              />
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <input 
+                  type="tel" 
+                  placeholder="Telefone / WhatsApp" 
+                  value={formData.phone}
+                  onChange={(e) => setFormData(prev => ({ ...prev, phone: e.target.value }))}
+                  className="bg-white/5 border border-white/10 p-4 w-full focus:outline-none focus:border-industrial-amber transition-colors text-white placeholder-titanium-silver/40 text-sm"
+                />
+                <input 
+                  type="text" 
+                  placeholder="Assunto (Ex: Usinagem de Eixo)" 
+                  value={formData.subject}
+                  onChange={(e) => setFormData(prev => ({ ...prev, subject: e.target.value }))}
+                  className="bg-white/5 border border-white/10 p-4 w-full focus:outline-none focus:border-industrial-amber transition-colors text-white placeholder-titanium-silver/40 text-sm"
+                />
+              </div>
+
               <textarea 
-                placeholder="Descreva sua necessidade técnica..." 
-                rows={4}
-                className="bg-white/5 border border-white/10 p-4 w-full focus:outline-none focus:border-industrial-amber transition-colors resize-none"
+                required
+                placeholder="Descreva sua necessidade técnica (medidas, material, prazos)... *" 
+                rows={4} 
+                value={formData.message}
+                onChange={(e) => setFormData(prev => ({ ...prev, message: e.target.value }))}
+                className="bg-white/5 border border-white/10 p-4 w-full focus:outline-none focus:border-industrial-amber transition-colors resize-none text-white placeholder-titanium-silver/40 text-sm"
               ></textarea>
-              <button className="w-full bg-industrial-amber text-slate-black font-display font-bold uppercase tracking-widest py-4 hover:bg-white transition-all">
-                Enviar Mensagem
+
+              {/* Botão Responsivo Enviar Mensagem */}
+              <button 
+                type="submit"
+                disabled={status === 'sending'}
+                className="w-full bg-industrial-amber text-slate-black font-display font-bold uppercase tracking-wider sm:tracking-widest py-3.5 sm:py-4 px-4 sm:px-6 text-sm sm:text-base hover:bg-amber-400 active:scale-[0.98] transition-all duration-200 flex items-center justify-center gap-2.5 shadow-lg shadow-industrial-amber/10 hover:shadow-industrial-amber/25 cursor-pointer disabled:opacity-80"
+              >
+                {status === 'sending' ? (
+                  <>
+                    <Loader2 className="w-5 h-5 animate-spin shrink-0" />
+                    <span>Preparando Envio...</span>
+                  </>
+                ) : status === 'sent' ? (
+                  <>
+                    <CheckCircle2 className="w-5 h-5 text-slate-black shrink-0" />
+                    <span className="truncate">E-mail Preparado para torneariaostac@gmail.com</span>
+                  </>
+                ) : (
+                  <>
+                    <Send className="w-5 h-5 shrink-0" />
+                    <span>Enviar Mensagem</span>
+                  </>
+                )}
               </button>
+
+              {/* Painel com atalhos de envio após acionar o e-mail */}
+              {status === 'sent' && (
+                <div className="mt-4 p-4 bg-industrial-amber/10 border border-industrial-amber/30 rounded-sm space-y-3">
+                  <div className="flex items-start gap-2.5">
+                    <CheckCircle2 className="w-4 h-4 text-industrial-amber shrink-0 mt-0.5" />
+                    <p className="text-xs text-white leading-relaxed">
+                      Seu aplicativo de e-mail foi acionado com destino para <strong>torneariaostac@gmail.com</strong>. Você também pode utilizar os atalhos diretos:
+                    </p>
+                  </div>
+                  <div className="flex flex-wrap gap-2 pt-1">
+                    <button
+                      type="button"
+                      onClick={openGmailWeb}
+                      className="text-xs font-bold uppercase tracking-wider bg-white/10 hover:bg-white/20 text-white px-3 py-2 rounded flex items-center gap-1.5 transition-colors cursor-pointer"
+                    >
+                      <ExternalLink className="w-3.5 h-3.5 text-industrial-amber" />
+                      Abrir no Gmail Web
+                    </button>
+                    <button
+                      type="button"
+                      onClick={copyEmailDetails}
+                      className="text-xs font-bold uppercase tracking-wider bg-white/10 hover:bg-white/20 text-white px-3 py-2 rounded flex items-center gap-1.5 transition-colors cursor-pointer"
+                    >
+                      {copied ? <Check className="w-3.5 h-3.5 text-green-400" /> : <Copy className="w-3.5 h-3.5 text-industrial-amber" />}
+                      {copied ? 'Dados Copiados!' : 'Copiar Dados'}
+                    </button>
+                    <a
+                      href={`https://wa.me/554733461085?text=${encodeURIComponent(`Olá! Enviei uma solicitação de orçamento para torneariaostac@gmail.com. Meu nome é ${formData.name}.`)}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-xs font-bold uppercase tracking-wider bg-[#25D366]/20 hover:bg-[#25D366]/30 text-[#25D366] border border-[#25D366]/40 px-3 py-2 rounded flex items-center gap-1.5 transition-colors"
+                    >
+                      <Phone className="w-3.5 h-3.5" />
+                      Avisar pelo WhatsApp
+                    </a>
+                  </div>
+                </div>
+              )}
             </form>
           </div>
         </div>
