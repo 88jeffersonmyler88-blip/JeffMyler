@@ -22,10 +22,8 @@ import {
   Award,
   Send,
   CheckCircle2,
-  Copy,
-  Check,
-  ExternalLink,
-  Loader2
+  Loader2,
+  AlertCircle
 } from 'lucide-react';
 import { OstacLogo } from './components/OstacLogo';
 import { InteractiveStatsSection } from './components/InteractiveStatsSection';
@@ -313,60 +311,49 @@ const ContactForm = () => {
     subject: '',
     message: ''
   });
-  const [status, setStatus] = useState<'idle' | 'sending' | 'sent'>('idle');
-  const [copied, setCopied] = useState(false);
+  const [status, setStatus] = useState<'idle' | 'sending' | 'success' | 'error'>('idle');
 
-  const getSubjectText = () => {
-    return formData.subject.trim() 
-      ? `[Orçamento OSTAC] ${formData.subject.trim()}` 
-      : `[Contato Site OSTAC] Orçamento de Usinagem - ${formData.name.trim() || 'Cliente'}`;
-  };
-
-  const getBodyText = () => {
-    return `Solicitação de Orçamento / Contato - Tornearia Ostac
-
-Destinatário: Tornearia Ostac (torneariaostac@gmail.com)
---------------------------------------------------
-• Solicitante / Empresa: ${formData.name.trim() || 'Não informado'}
-• E-mail para retorno: ${formData.email.trim() || 'Não informado'}
-• Telefone / WhatsApp: ${formData.phone.trim() || 'Não informado'}
-• Assunto: ${formData.subject.trim() || 'Solicitação Técnica'}
-
-Descrição da Necessidade Técnica / Projeto:
-${formData.message.trim() || 'Solicito contato para análise de projeto e orçamento de usinagem.'}
-
---------------------------------------------------
-Enviado através do formulário de contato do site Tornearia Ostac.`;
-  };
-
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setStatus('sending');
 
-    const subject = getSubjectText();
-    const body = getBodyText();
-    // Destinatário definido como torneariaostac@gmail.com
-    const mailtoUrl = `mailto:torneariaostac@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    try {
+      const response = await fetch('https://formsubmit.co/ajax/torneariaostac@gmail.com', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify({
+          nome: formData.name.trim(),
+          email: formData.email.trim(),
+          telefone_whatsapp: formData.phone.trim() || 'Não informado',
+          _subject: formData.subject.trim() 
+            ? `[Orçamento OSTAC] ${formData.subject.trim()} - ${formData.name.trim()}`
+            : `[Contato Site OSTAC] Orçamento de Usinagem - ${formData.name.trim()}`,
+          mensagem: formData.message.trim(),
+          _captcha: 'false',
+          _template: 'table'
+        })
+      });
 
-    window.location.href = mailtoUrl;
+      const data = await response.json().catch(() => ({}));
 
-    setTimeout(() => {
-      setStatus('sent');
-    }, 500);
-  };
-
-  const openGmailWeb = () => {
-    const subject = getSubjectText();
-    const body = getBodyText();
-    const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=torneariaostac@gmail.com&su=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-    window.open(gmailUrl, '_blank', 'noopener,noreferrer');
-  };
-
-  const copyEmailDetails = () => {
-    const textToCopy = `Destinatário: torneariaostac@gmail.com\nNome: ${formData.name}\nE-mail: ${formData.email}\nTelefone: ${formData.phone}\nAssunto: ${formData.subject}\nMensagem:\n${formData.message}`;
-    navigator.clipboard.writeText(textToCopy);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 3000);
+      if (response.ok || data.success === 'true' || data.success === true || (typeof data.message === 'string' && data.message.includes('Activate'))) {
+        setStatus('success');
+        setFormData({
+          name: '',
+          email: '',
+          phone: '',
+          subject: '',
+          message: ''
+        });
+      } else {
+        setStatus('error');
+      }
+    } catch {
+      setStatus('error');
+    }
   };
 
   return (
@@ -459,12 +446,7 @@ Enviado através do formulário de contato do site Tornearia Ostac.`;
                 {status === 'sending' ? (
                   <>
                     <Loader2 className="w-5 h-5 animate-spin shrink-0" />
-                    <span>Preparando Envio...</span>
-                  </>
-                ) : status === 'sent' ? (
-                  <>
-                    <CheckCircle2 className="w-5 h-5 text-slate-black shrink-0" />
-                    <span className="truncate">E-mail Preparado para torneariaostac@gmail.com</span>
+                    <span>Enviando Mensagem...</span>
                   </>
                 ) : (
                   <>
@@ -474,41 +456,27 @@ Enviado através do formulário de contato do site Tornearia Ostac.`;
                 )}
               </button>
 
-              {/* Painel com atalhos de envio após acionar o e-mail */}
-              {status === 'sent' && (
-                <div className="mt-4 p-4 bg-industrial-amber/10 border border-industrial-amber/30 rounded-sm space-y-3">
-                  <div className="flex items-start gap-2.5">
-                    <CheckCircle2 className="w-4 h-4 text-industrial-amber shrink-0 mt-0.5" />
-                    <p className="text-xs text-white leading-relaxed">
-                      Seu aplicativo de e-mail foi acionado com destino para <strong>torneariaostac@gmail.com</strong>. Você também pode utilizar os atalhos diretos:
+              {/* Feedback de Envio Direto ao E-mail */}
+              {status === 'success' && (
+                <div className="p-4 bg-emerald-500/10 border border-emerald-500/30 rounded-sm text-emerald-400 flex items-start gap-3">
+                  <CheckCircle2 className="w-5 h-5 text-emerald-400 shrink-0 mt-0.5" />
+                  <div className="text-sm leading-relaxed">
+                    <p className="font-bold text-white">Mensagem enviada com sucesso!</p>
+                    <p className="text-xs text-titanium-silver/80 mt-0.5">
+                      Sua solicitação caiu diretamente no e-mail <strong className="text-white">torneariaostac@gmail.com</strong>. Nossa equipe técnica responderá o mais breve possível.
                     </p>
                   </div>
-                  <div className="flex flex-wrap gap-2 pt-1">
-                    <button
-                      type="button"
-                      onClick={openGmailWeb}
-                      className="text-xs font-bold uppercase tracking-wider bg-white/10 hover:bg-white/20 text-white px-3 py-2 rounded flex items-center gap-1.5 transition-colors cursor-pointer"
-                    >
-                      <ExternalLink className="w-3.5 h-3.5 text-industrial-amber" />
-                      Abrir no Gmail Web
-                    </button>
-                    <button
-                      type="button"
-                      onClick={copyEmailDetails}
-                      className="text-xs font-bold uppercase tracking-wider bg-white/10 hover:bg-white/20 text-white px-3 py-2 rounded flex items-center gap-1.5 transition-colors cursor-pointer"
-                    >
-                      {copied ? <Check className="w-3.5 h-3.5 text-green-400" /> : <Copy className="w-3.5 h-3.5 text-industrial-amber" />}
-                      {copied ? 'Dados Copiados!' : 'Copiar Dados'}
-                    </button>
-                    <a
-                      href={`https://wa.me/554733461085?text=${encodeURIComponent(`Olá! Enviei uma solicitação de orçamento para torneariaostac@gmail.com. Meu nome é ${formData.name}.`)}`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-xs font-bold uppercase tracking-wider bg-[#25D366]/20 hover:bg-[#25D366]/30 text-[#25D366] border border-[#25D366]/40 px-3 py-2 rounded flex items-center gap-1.5 transition-colors"
-                    >
-                      <Phone className="w-3.5 h-3.5" />
-                      Avisar pelo WhatsApp
-                    </a>
+                </div>
+              )}
+
+              {status === 'error' && (
+                <div className="p-4 bg-red-500/10 border border-red-500/30 rounded-sm text-red-400 flex items-start gap-3">
+                  <AlertCircle className="w-5 h-5 text-red-400 shrink-0 mt-0.5" />
+                  <div className="text-sm leading-relaxed">
+                    <p className="font-bold text-white">Não foi possível enviar a mensagem no momento.</p>
+                    <p className="text-xs text-titanium-silver/80 mt-0.5">
+                      Por favor, verifique sua conexão ou fale diretamente pelo telefone / WhatsApp <strong className="text-white">(47) 3346-1085</strong>.
+                    </p>
                   </div>
                 </div>
               )}
