@@ -1,5 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Upload, Link as LinkIcon, Check, RefreshCw } from 'lucide-react';
+import defaultWelderImg from '../assets/noaaa.png';
+import { welderLogoBase64 } from '../assets/welderLogoBase64';
 
 interface OstacLogoProps {
   className?: string;
@@ -11,7 +13,15 @@ export const OstacLogo: React.FC<OstacLogoProps> = ({
   alt = "OSTAC Soldador e Usinagem",
 }) => {
   const [logoSrc, setLogoSrc] = useState<string>(() => {
-    return localStorage.getItem('ostac_custom_logo') || '/noaaa.png';
+    try {
+      const saved = localStorage.getItem('ostac_custom_logo');
+      if (saved && !saved.startsWith('blob:') && (saved.startsWith('data:image') || saved.startsWith('http'))) {
+        return saved;
+      }
+    } catch {
+      // ignore
+    }
+    return defaultWelderImg || welderLogoBase64;
   });
   const [isHovered, setIsHovered] = useState(false);
   const [showModal, setShowModal] = useState(false);
@@ -33,7 +43,11 @@ export const OstacLogo: React.FC<OstacLogoProps> = ({
 
   const broadcastChange = (newSrc: string) => {
     setLogoSrc(newSrc);
-    localStorage.setItem('ostac_custom_logo', newSrc);
+    try {
+      localStorage.setItem('ostac_custom_logo', newSrc);
+    } catch (e) {
+      console.warn('Could not save to localStorage:', e);
+    }
     window.dispatchEvent(new CustomEvent('ostac_logo_change', { detail: newSrc }));
   };
 
@@ -100,8 +114,12 @@ export const OstacLogo: React.FC<OstacLogoProps> = ({
   };
 
   const resetToDefault = () => {
-    localStorage.removeItem('ostac_custom_logo');
-    broadcastChange('/noaaa.png');
+    try {
+      localStorage.removeItem('ostac_custom_logo');
+    } catch {
+      // ignore
+    }
+    broadcastChange(defaultWelderImg || welderLogoBase64);
     setShowModal(false);
   };
 
@@ -121,10 +139,17 @@ export const OstacLogo: React.FC<OstacLogoProps> = ({
         className="hidden" 
       />
 
-      {/* Main Image */}
+      {/* Main Image with zero-fail fallback */}
       <img 
         src={logoSrc} 
         alt={alt} 
+        referrerPolicy="no-referrer"
+        onError={(e) => {
+          const target = e.currentTarget;
+          if (target.src !== welderLogoBase64) {
+            target.src = welderLogoBase64;
+          }
+        }}
         className={`${className} cursor-pointer transition-transform duration-300 hover:scale-[1.02]`}
         onClick={() => fileInputRef.current?.click()}
         title="Clique para escolher a imagem original do seu computador"
