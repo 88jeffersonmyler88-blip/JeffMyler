@@ -19,15 +19,12 @@ import {
   X,
   Clock,
   Target,
-  Award,
-  Download,
-  Code
+  Award
 } from 'lucide-react';
 import { OstacLogo } from './components/OstacLogo';
 import { InteractiveStatsSection } from './components/InteractiveStatsSection';
-import { HtmlExportModal } from './components/HtmlExportModal';
 
-const Navbar = ({ onOpenHtmlModal }: { onOpenHtmlModal: () => void }) => {
+const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
@@ -99,15 +96,6 @@ const Navbar = ({ onOpenHtmlModal }: { onOpenHtmlModal: () => void }) => {
           <a href="#galeria" className="text-sm uppercase tracking-widest hover:text-industrial-amber transition-colors">Galeria</a>
           <a href="#sobre" className="text-sm uppercase tracking-widest hover:text-industrial-amber transition-colors">Sobre</a>
           <a href="#contato" className="text-sm uppercase tracking-widest hover:text-industrial-amber transition-colors">Contato</a>
-          
-          <button
-            onClick={onOpenHtmlModal}
-            className="flex items-center gap-1.5 text-xs text-amber-300 hover:text-white bg-amber-500/10 hover:bg-amber-500/20 border border-amber-500/30 px-3 py-2 rounded transition-colors font-mono uppercase tracking-wider"
-            title="Ver, copiar ou baixar o código puro HTML"
-          >
-            <Code className="w-3.5 h-3.5 text-industrial-amber" />
-            <span>Código Puro HTML</span>
-          </button>
 
           <a 
             href="https://wa.me/554733461085" 
@@ -138,17 +126,6 @@ const Navbar = ({ onOpenHtmlModal }: { onOpenHtmlModal: () => void }) => {
             <a href="#galeria" onClick={() => setIsMobileMenuOpen(false)} className="text-lg uppercase font-display">Galeria</a>
             <a href="#sobre" onClick={() => setIsMobileMenuOpen(false)} className="text-lg uppercase font-display">Sobre</a>
             <a href="#contato" onClick={() => setIsMobileMenuOpen(false)} className="text-lg uppercase font-display">Contato</a>
-            
-            <button
-              onClick={() => {
-                setIsMobileMenuOpen(false);
-                onOpenHtmlModal();
-              }}
-              className="flex items-center justify-center gap-2 border border-amber-500/40 text-amber-300 bg-amber-500/10 p-3 rounded font-display uppercase tracking-wider text-sm"
-            >
-              <Code className="w-4 h-4 text-amber-400" />
-              <span>Código Puro HTML</span>
-            </button>
 
             <a 
               href="https://wa.me/554733461085" 
@@ -559,7 +536,7 @@ const About = () => {
   );
 };
 
-const Footer = ({ onOpenHtmlModal }: { onOpenHtmlModal: () => void }) => {
+const Footer = () => {
   return (
     <footer id="contato" className="bg-slate-black pt-24 pb-12 border-t border-white/5">
       <div className="container mx-auto px-6">
@@ -577,10 +554,24 @@ const Footer = ({ onOpenHtmlModal }: { onOpenHtmlModal: () => void }) => {
               Líder em usinagem de precisão e soluções industriais em Itajaí. Transformando desafios técnicos em resultados de alta performance.
             </p>
             <div className="flex gap-4">
-              <a href="#" className="w-10 h-10 border border-white/10 flex items-center justify-center hover:bg-industrial-amber hover:text-slate-black transition-all">
+              <a 
+                href="https://www.instagram.com/torneariaostac/" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="w-10 h-10 border border-white/10 flex items-center justify-center hover:bg-industrial-amber hover:text-slate-black transition-all"
+                title="Instagram Tornearia Ostac"
+                aria-label="Instagram Tornearia Ostac"
+              >
                 <Instagram className="w-5 h-5" />
               </a>
-              <a href="#" className="w-10 h-10 border border-white/10 flex items-center justify-center hover:bg-industrial-amber hover:text-slate-black transition-all">
+              <a 
+                href="https://web.facebook.com/ostactornearia/?locale=pt_BR&_rdc=1&_rdr#" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="w-10 h-10 border border-white/10 flex items-center justify-center hover:bg-industrial-amber hover:text-slate-black transition-all"
+                title="Facebook Tornearia Ostac"
+                aria-label="Facebook Tornearia Ostac"
+              >
                 <Facebook className="w-5 h-5" />
               </a>
             </div>
@@ -617,34 +608,7 @@ const Footer = ({ onOpenHtmlModal }: { onOpenHtmlModal: () => void }) => {
 
         <div className="pt-12 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-6 text-xs text-titanium-silver/40 uppercase tracking-widest">
           <p>© 2026 Tornearia Ostac. Todos os direitos reservados.</p>
-          <div className="flex flex-wrap items-center gap-4">
-            <button
-              onClick={onOpenHtmlModal}
-              className="text-amber-300 hover:text-white transition-colors flex items-center gap-1.5 font-bold normal-case text-xs bg-amber-500/10 hover:bg-amber-500/20 px-3 py-1.5 rounded border border-amber-500/30"
-              title="Abrir modal para copiar ou visualizar o código HTML puro"
-            >
-              <Code className="w-3.5 h-3.5 text-industrial-amber" />
-              <span>Ver e Copiar Código HTML</span>
-            </button>
-            <a 
-              href="/elementor-landing-page.html" 
-              download="index.html"
-              className="text-industrial-amber hover:text-white transition-colors flex items-center gap-1.5 font-bold normal-case text-xs bg-industrial-amber/10 hover:bg-industrial-amber/20 px-3 py-1.5 rounded border border-industrial-amber/30"
-              title="Baixar arquivo index.html puro pronto para Hostinger"
-            >
-              <Download className="w-3.5 h-3.5 text-industrial-amber" />
-              <span>Baixar index.html</span>
-            </a>
-            <a 
-              href="/elementor-landing-page.html" 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className="text-titanium-silver/60 hover:text-industrial-amber transition-colors flex items-center gap-1.5 normal-case text-xs"
-            >
-              <Code className="w-3.5 h-3.5" />
-              <span>Abrir HTML em Nova Aba</span>
-            </a>
-          </div>
+          <p>Engenharia e Precisão Industrial.</p>
         </div>
       </div>
     </footer>
@@ -652,12 +616,10 @@ const Footer = ({ onOpenHtmlModal }: { onOpenHtmlModal: () => void }) => {
 };
 
 export default function App() {
-  const [isHtmlModalOpen, setIsHtmlModalOpen] = useState(false);
-
   return (
     <div className="mesh-gradient min-h-screen relative">
       <div className="fixed inset-0 steel-texture pointer-events-none z-10" />
-      <Navbar onOpenHtmlModal={() => setIsHtmlModalOpen(true)} />
+      <Navbar />
       <main>
         <Hero />
         <InteractiveStatsSection />
@@ -666,13 +628,7 @@ export default function App() {
         <About />
         <ContactForm />
       </main>
-      <Footer onOpenHtmlModal={() => setIsHtmlModalOpen(true)} />
-
-      {/* HTML Code Modal */}
-      <HtmlExportModal 
-        isOpen={isHtmlModalOpen} 
-        onClose={() => setIsHtmlModalOpen(false)} 
-      />
+      <Footer />
       
       {/* Floating WhatsApp Button */}
       <a 
