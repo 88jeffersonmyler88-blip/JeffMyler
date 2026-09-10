@@ -1,6 +1,15 @@
 <!DOCTYPE html>
 <html lang="pt-BR" class="scroll-smooth">
 <head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-LJCSHWTY9B"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-LJCSHWTY9B');
+  </script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="referrer" content="no-referrer">
@@ -900,6 +909,7 @@
 
           if (response.ok || data.success === "true" || data.success === true || (typeof data.message === "string" && data.message.includes("Activate"))) {
             if (successBox) successBox.classList.remove("hidden");
+            if (typeof gtag === "function") { gtag("event", "generate_lead", { event_category: "Contato", event_label: "Formulário de Orçamento", value: 1.0 }); }
             form.reset();
           } else {
             if (errorBox) errorBox.classList.remove("hidden");

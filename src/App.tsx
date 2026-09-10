@@ -341,6 +341,13 @@ const ContactForm = () => {
 
       if (response.ok || data.success === 'true' || data.success === true || (typeof data.message === 'string' && data.message.includes('Activate'))) {
         setStatus('success');
+        if (typeof window !== 'undefined' && typeof (window as unknown as { gtag?: (...args: unknown[]) => void }).gtag === 'function') {
+          (window as unknown as { gtag: (...args: unknown[]) => void }).gtag('event', 'generate_lead', {
+            event_category: 'Contato',
+            event_label: 'Formulário de Orçamento',
+            value: 1.0
+          });
+        }
         setFormData({
           name: '',
           email: '',
