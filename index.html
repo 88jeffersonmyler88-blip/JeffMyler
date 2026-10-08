@@ -9,6 +9,46 @@
       gtag('js', new Date());
 
       gtag('config', 'G-S1LB2KT5LK');
+
+      // Rastreamento de conversões dos botões do WhatsApp (Google Analytics 4)
+      (function() {
+        window.__lastWhatsAppClickTime = 0;
+        window.__lastWhatsAppUrl = '';
+
+        function trackWhatsAppClick(linkEl, href) {
+          var now = Date.now();
+          // Evita disparos duplicados do mesmo clique (debounce de 1.2s)
+          if (now - window.__lastWhatsAppClickTime < 1200 && window.__lastWhatsAppUrl === href) {
+            return;
+          }
+          window.__lastWhatsAppClickTime = now;
+          window.__lastWhatsAppUrl = href;
+
+          var location = linkEl.getAttribute('data-wa-location') || '';
+          var text = (linkEl.innerText || linkEl.textContent || '').trim().replace(/\s+/g, ' ');
+          var label = location || linkEl.getAttribute('title') || linkEl.getAttribute('aria-label') || (text.length > 0 ? text : 'Botão WhatsApp');
+
+          if (typeof window.gtag === 'function') {
+            window.gtag('event', 'whatsapp_click', {
+              event_category: 'Contato',
+              event_label: label,
+              link_url: href,
+              link_domain: 'wa.me',
+              transport_type: 'beacon'
+            });
+          }
+        }
+
+        // Intercepta o evento na fase de captura antes do redirecionamento
+        document.addEventListener('click', function(e) {
+          var target = e.target;
+          var link = target && target.closest ? target.closest('a[href*="wa.me"], a[href*="whatsapp.com"], a[href*="api.whatsapp.com"]') : null;
+          if (link) {
+            var href = link.getAttribute('href') || 'https://wa.me/554733461085';
+            trackWhatsAppClick(link, href);
+          }
+        }, true);
+      })();
     </script>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />

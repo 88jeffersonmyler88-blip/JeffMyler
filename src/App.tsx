@@ -105,6 +105,7 @@ const Navbar = () => {
             href="https://wa.me/554733461085" 
             target="_blank" 
             rel="noopener noreferrer"
+            data-wa-location="Menu Desktop - Solicitar Orçamento"
             className="bg-industrial-amber text-slate-black px-6 py-2.5 font-display font-bold uppercase tracking-wider text-sm hover:bg-white transition-all animate-pulse-amber"
           >
             Solicitar Orçamento
@@ -133,6 +134,9 @@ const Navbar = () => {
 
             <a 
               href="https://wa.me/554733461085" 
+              target="_blank"
+              rel="noopener noreferrer"
+              data-wa-location="Menu Mobile - Solicitar Orçamento"
               className="bg-industrial-amber text-slate-black p-4 text-center font-display font-bold uppercase"
             >
               Solicitar Orçamento
@@ -183,6 +187,9 @@ const Hero = () => {
             <div className="flex flex-col sm:flex-row gap-4">
               <a 
                 href="https://wa.me/554733461085"
+                target="_blank"
+                rel="noopener noreferrer"
+                data-wa-location="Hero - Falar com Especialista"
                 className="group bg-industrial-amber text-slate-black px-8 py-4 font-display font-bold uppercase tracking-widest flex items-center justify-center gap-3 hover:bg-white transition-all"
               >
                 Falar com um Especialista
@@ -722,7 +729,15 @@ const Footer = () => {
               </li>
               <li className="flex items-center gap-4">
                 <Phone className="text-industrial-amber w-5 h-5 shrink-0" />
-                <span>(47) 3346-1085</span>
+                <a 
+                  href="https://wa.me/554733461085" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  data-wa-location="Rodapé - Atendimento"
+                  className="hover:text-industrial-amber transition-colors"
+                >
+                  (47) 3346-1085
+                </a>
               </li>
               <li className="flex items-center gap-4">
                 <Mail className="text-industrial-amber w-5 h-5 shrink-0" />
@@ -761,6 +776,9 @@ export default function App() {
         href="https://wa.me/554733461085" 
         target="_blank" 
         rel="noopener noreferrer"
+        data-wa-location="Botão Flutuante WhatsApp"
+        title="WhatsApp Tornearia Ostac"
+        aria-label="Falar pelo WhatsApp"
         className="fixed bottom-8 right-8 z-50 bg-green-600 text-white p-4 rounded-full shadow-2xl hover:scale-110 transition-transform flex items-center justify-center"
       >
         <svg viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6">
